@@ -1,5 +1,7 @@
 package com.brutality.client.draw;
 
+import java.util.concurrent.Executors;
+
 import com.brutality.client.Client;
 import com.brutality.client.Configuration;
 import com.brutality.client.cache.StreamLoader;
@@ -8,7 +10,7 @@ import com.brutality.client.map.WorldController;
 
 public final class Rasterizer extends DrawingArea {
 	
-	public static void nullLoader()
+	   public static void nullLoader()
 	{
 		anIntArray1468 = null;
 		anIntArray1468 = null;
@@ -23,6 +25,7 @@ public final class Rasterizer extends DrawingArea {
 		anIntArray1480 = null;
 		anIntArray1482 = null;
 		anIntArrayArray1483 = null;
+		RendererLock.kill();
 	}
 	
 
@@ -1695,6 +1698,7 @@ public final class Rasterizer extends DrawingArea {
 
 	public static void method368(StreamLoader streamLoader)
 	{
+		RendererLock.init();
 		anInt1473 = 0;
 		for(int j = 0; j < textureAmount; j++)
 			try
@@ -1918,15 +1922,31 @@ public final class Rasterizer extends DrawingArea {
 		int l = (int)(d3 * 256D);
 		return (j << 16) + (k << 8) + l;
 	}
-	
-	public static void method374(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3) {
-		if (Configuration.smoothShading && aBoolean1464) {
-			drawHDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+
+	public static void drawGouraudTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3) {
+		if (RendererLock.active) {
+			RendererLock.submit(new Runnable() {
+
+				@Override
+				public void run() {
+					if (Configuration.smoothShading && aBoolean1464) {
+						drawHDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+					} else {
+						drawLDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+					}
+					RendererLock.completed();
+				}
+			});
 		} else {
-			drawLDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+			if (Configuration.smoothShading && aBoolean1464) {
+				drawHDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+			} else {
+				drawLDGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+			}
 		}
 	}
 
+	
 	public static void drawLDGouraudTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3) {
 		int j2 = 0;
 		int k2 = 0;
@@ -5457,7 +5477,7 @@ public final class Rasterizer extends DrawingArea {
 	
 public static void drawMaterializedTriangle(int y1, int y2, int y3, int x1, int x2, int x3, int hsl1, int hsl2, int hsl3, int tx1, int tx2, int tx3, int ty1, int ty2, int ty3, int tz1, int tz2, int tz3, int tex) {
 		if (!Configuration.hdTexturing || Texture.get(tex) == null) {
-			method374(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
+			drawGouraudTriangle(y1, y2, y3, x1, x2, x3, hsl1, hsl2, hsl3);
 			return;
 		}
 		int area = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) >> 1;

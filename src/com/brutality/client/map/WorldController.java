@@ -874,8 +874,8 @@ public final class WorldController {
 		anInt461 = Model.modelIntArray2[k];
 		aBooleanArrayArray492 = aBooleanArrayArrayArrayArray491[(j1 - 128) / 32][k / 64];
 		anInt455 = i;
-		anInt456 = l;
-		anInt457 = j;
+		cameraY = l;
+		cameraZ = j;
 		anInt453 = i / 128;
 		anInt454 = j / 128;
 		anInt447 = i1;
@@ -1067,14 +1067,14 @@ public final class WorldController {
 					Object1 class10 = class30_sub3_7.obj1;
 					if (class10 != null)
 						class10.aClass30_Sub2_Sub4_278.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10.anInt274 - anInt455, class10.anInt273 - anInt456, class10.anInt275 - anInt457,
+								class10.anInt274 - anInt455, class10.anInt273 - cameraY, class10.anInt275 - cameraZ,
 								class10.uid);
 					for (int i2 = 0; i2 < class30_sub3_7.anInt1317; i2++) {
 						Object5 class28 = class30_sub3_7.obj5Array[i2];
 						if (class28 != null)
 							class28.aClass30_Sub2_Sub4_521.method443(class28.anInt522, anInt458, anInt459, anInt460,
-									anInt461, class28.anInt519 - anInt455, class28.anInt518 - anInt456,
-									class28.anInt520 - anInt457, class28.uid);
+									anInt461, class28.anInt519 - anInt455, class28.anInt518 - cameraY,
+									class28.anInt520 - cameraZ, class28.uid);
 					}
 
 				}
@@ -1128,22 +1128,22 @@ public final class WorldController {
 					}
 					if ((class10_3.orientation & j2) != 0 && !method321(l, i, j, class10_3.orientation))
 						class10_3.aClass30_Sub2_Sub4_278.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10_3.anInt274 - anInt455, class10_3.anInt273 - anInt456,
-								class10_3.anInt275 - anInt457, class10_3.uid);
+								class10_3.anInt274 - anInt455, class10_3.anInt273 - cameraY,
+								class10_3.anInt275 - cameraZ, class10_3.uid);
 					if ((class10_3.orientation1 & j2) != 0 && !method321(l, i, j, class10_3.orientation1))
 						class10_3.aClass30_Sub2_Sub4_279.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10_3.anInt274 - anInt455, class10_3.anInt273 - anInt456,
-								class10_3.anInt275 - anInt457, class10_3.uid);
+								class10_3.anInt274 - anInt455, class10_3.anInt273 - cameraY,
+								class10_3.anInt275 - cameraZ, class10_3.uid);
 				}
 				if (class26_1 != null && !method322(l, i, j, class26_1.aClass30_Sub2_Sub4_504.modelHeight))
 					if ((class26_1.anInt502 & j2) != 0)
 						class26_1.aClass30_Sub2_Sub4_504.method443(class26_1.anInt503, anInt458, anInt459, anInt460,
-								anInt461, class26_1.anInt500 - anInt455, class26_1.anInt499 - anInt456,
-								class26_1.anInt501 - anInt457, class26_1.uid);
+								anInt461, class26_1.anInt500 - anInt455, class26_1.anInt499 - cameraY,
+								class26_1.anInt501 - cameraZ, class26_1.uid);
 					else if ((class26_1.anInt502 & 0x300) != 0) {
 						int j4 = class26_1.anInt500 - anInt455;
-						int l5 = class26_1.anInt499 - anInt456;
-						int k6 = class26_1.anInt501 - anInt457;
+						int l5 = class26_1.anInt499 - cameraY;
+						int k6 = class26_1.anInt501 - cameraZ;
 						int i8 = class26_1.anInt503;
 						int k9;
 						if (i8 == 1 || i8 == 2)
@@ -1172,22 +1172,22 @@ public final class WorldController {
 					Object3 class49 = class30_sub3_1.obj3;
 					if (class49 != null)
 						class49.aClass30_Sub2_Sub4_814.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class49.anInt812 - anInt455, class49.anInt811 - anInt456, class49.anInt813 - anInt457,
+								class49.anInt812 - anInt455, class49.anInt811 - cameraY, class49.anInt813 - cameraZ,
 								class49.uid);
 					Object4 object4_1 = class30_sub3_1.obj4;
 					if (object4_1 != null && object4_1.anInt52 == 0) {
 						if (object4_1.aClass30_Sub2_Sub4_49 != null)
 							object4_1.aClass30_Sub2_Sub4_49.method443(0, anInt458, anInt459, anInt460, anInt461,
-									object4_1.anInt46 - anInt455, object4_1.anInt45 - anInt456,
-									object4_1.anInt47 - anInt457, object4_1.uid);
+									object4_1.anInt46 - anInt455, object4_1.anInt45 - cameraY,
+									object4_1.anInt47 - cameraZ, object4_1.uid);
 						if (object4_1.aClass30_Sub2_Sub4_50 != null)
 							object4_1.aClass30_Sub2_Sub4_50.method443(0, anInt458, anInt459, anInt460, anInt461,
-									object4_1.anInt46 - anInt455, object4_1.anInt45 - anInt456,
-									object4_1.anInt47 - anInt457, object4_1.uid);
+									object4_1.anInt46 - anInt455, object4_1.anInt45 - cameraY,
+									object4_1.anInt47 - cameraZ, object4_1.uid);
 						if (object4_1.aClass30_Sub2_Sub4_48 != null)
 							object4_1.aClass30_Sub2_Sub4_48.method443(0, anInt458, anInt459, anInt460, anInt461,
-									object4_1.anInt46 - anInt455, object4_1.anInt45 - anInt456,
-									object4_1.anInt47 - anInt457, object4_1.uid);
+									object4_1.anInt46 - anInt455, object4_1.anInt45 - cameraY,
+									object4_1.anInt47 - cameraZ, object4_1.uid);
 					}
 				}
 				int k4 = class30_sub3_1.anInt1320;
@@ -1228,8 +1228,8 @@ public final class WorldController {
 					Object1 class10_1 = class30_sub3_1.obj1;
 					if (!method321(l, i, j, class10_1.orientation))
 						class10_1.aClass30_Sub2_Sub4_278.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10_1.anInt274 - anInt455, class10_1.anInt273 - anInt456,
-								class10_1.anInt275 - anInt457, class10_1.uid);
+								class10_1.anInt274 - anInt455, class10_1.anInt273 - cameraY,
+								class10_1.anInt275 - cameraZ, class10_1.uid);
 					class30_sub3_1.anInt1325 = 0;
 				}
 			}
@@ -1292,9 +1292,9 @@ public final class WorldController {
 									l3 = j5;
 								} else if (class28_2.anInt527 == i3) {
 									int j7 = class28_2.anInt519 - anInt455;
-									int k8 = class28_2.anInt520 - anInt457;
+									int k8 = class28_2.anInt520 - cameraZ;
 									int l9 = aClass28Array462[l3].anInt519 - anInt455;
-									int l10 = aClass28Array462[l3].anInt520 - anInt457;
+									int l10 = aClass28Array462[l3].anInt520 - cameraZ;
 									if (j7 * j7 + k8 * k8 > l9 * l9 + l10 * l10)
 										l3 = j5;
 								}
@@ -1307,8 +1307,8 @@ public final class WorldController {
 						if (!method323(l, class28_3.anInt523, class28_3.anInt524, class28_3.anInt525,
 								class28_3.anInt526, class28_3.aClass30_Sub2_Sub4_521.modelHeight))
 							class28_3.aClass30_Sub2_Sub4_521.method443(class28_3.anInt522, anInt458, anInt459, anInt460,
-									anInt461, class28_3.anInt519 - anInt455, class28_3.anInt518 - anInt456,
-									class28_3.anInt520 - anInt457, class28_3.uid);
+									anInt461, class28_3.anInt519 - anInt455, class28_3.anInt518 - cameraY,
+									class28_3.anInt520 - cameraZ, class28_3.uid);
 						for (int k7 = class28_3.anInt523; k7 <= class28_3.anInt524; k7++) {
 							for (int l8 = class28_3.anInt525; l8 <= class28_3.anInt526; l8++) {
 								Ground class30_sub3_22 = aclass30_sub3[k7][l8];
@@ -1354,28 +1354,28 @@ public final class WorldController {
 			if (object4 != null && object4.anInt52 != 0) {
 				if (object4.aClass30_Sub2_Sub4_49 != null)
 					object4.aClass30_Sub2_Sub4_49.method443(0, anInt458, anInt459, anInt460, anInt461,
-							object4.anInt46 - anInt455, object4.anInt45 - anInt456 - object4.anInt52,
-							object4.anInt47 - anInt457, object4.uid);
+							object4.anInt46 - anInt455, object4.anInt45 - cameraY - object4.anInt52,
+							object4.anInt47 - cameraZ, object4.uid);
 				if (object4.aClass30_Sub2_Sub4_50 != null)
 					object4.aClass30_Sub2_Sub4_50.method443(0, anInt458, anInt459, anInt460, anInt461,
-							object4.anInt46 - anInt455, object4.anInt45 - anInt456 - object4.anInt52,
-							object4.anInt47 - anInt457, object4.uid);
+							object4.anInt46 - anInt455, object4.anInt45 - cameraY - object4.anInt52,
+							object4.anInt47 - cameraZ, object4.uid);
 				if (object4.aClass30_Sub2_Sub4_48 != null)
 					object4.aClass30_Sub2_Sub4_48.method443(0, anInt458, anInt459, anInt460, anInt461,
-							object4.anInt46 - anInt455, object4.anInt45 - anInt456 - object4.anInt52,
-							object4.anInt47 - anInt457, object4.uid);
+							object4.anInt46 - anInt455, object4.anInt45 - cameraY - object4.anInt52,
+							object4.anInt47 - cameraZ, object4.uid);
 			}
 			if (class30_sub3_1.anInt1328 != 0) {
 				Object2 class26 = class30_sub3_1.obj2;
 				if (class26 != null && !method322(l, i, j, class26.aClass30_Sub2_Sub4_504.modelHeight))
 					if ((class26.anInt502 & class30_sub3_1.anInt1328) != 0)
 						class26.aClass30_Sub2_Sub4_504.method443(class26.anInt503, anInt458, anInt459, anInt460,
-								anInt461, class26.anInt500 - anInt455, class26.anInt499 - anInt456,
-								class26.anInt501 - anInt457, class26.uid);
+								anInt461, class26.anInt500 - anInt455, class26.anInt499 - cameraY,
+								class26.anInt501 - cameraZ, class26.uid);
 					else if ((class26.anInt502 & 0x300) != 0) {
 						int l2 = class26.anInt500 - anInt455;
-						int j3 = class26.anInt499 - anInt456;
-						int i4 = class26.anInt501 - anInt457;
+						int j3 = class26.anInt499 - cameraY;
+						int i4 = class26.anInt501 - cameraZ;
 						int k5 = class26.anInt503;
 						int j6;
 						if (k5 == 1 || k5 == 2)
@@ -1405,13 +1405,13 @@ public final class WorldController {
 					if ((class10_2.orientation1 & class30_sub3_1.anInt1328) != 0
 							&& !method321(l, i, j, class10_2.orientation1))
 						class10_2.aClass30_Sub2_Sub4_279.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10_2.anInt274 - anInt455, class10_2.anInt273 - anInt456,
-								class10_2.anInt275 - anInt457, class10_2.uid);
+								class10_2.anInt274 - anInt455, class10_2.anInt273 - cameraY,
+								class10_2.anInt275 - cameraZ, class10_2.uid);
 					if ((class10_2.orientation & class30_sub3_1.anInt1328) != 0
 							&& !method321(l, i, j, class10_2.orientation))
 						class10_2.aClass30_Sub2_Sub4_278.method443(0, anInt458, anInt459, anInt460, anInt461,
-								class10_2.anInt274 - anInt455, class10_2.anInt273 - anInt456,
-								class10_2.anInt275 - anInt457, class10_2.uid);
+								class10_2.anInt274 - anInt455, class10_2.anInt273 - cameraY,
+								class10_2.anInt275 - cameraZ, class10_2.uid);
 				}
 			}
 			if (k < anInt437 - 1) {
@@ -1446,15 +1446,15 @@ public final class WorldController {
 		int l1;
 		int i2 = l1 = (j1 << 7) - anInt455;
 		int z2;
-		int z1 = z2 = (k1 << 7) - anInt457;
+		int z1 = z2 = (k1 << 7) - cameraZ;
 		int l2;
 		int i3 = l2 = i2 + 128;
 		int z4;
 		int z3 = z4 = z1 + 128;
-		int l3 = anIntArrayArrayArray440[i][j1][k1] - anInt456;
-		int i4 = anIntArrayArrayArray440[i][j1 + 1][k1] - anInt456;
-		int j4 = anIntArrayArrayArray440[i][j1 + 1][k1 + 1] - anInt456;
-		int k4 = anIntArrayArrayArray440[i][j1][k1 + 1] - anInt456;
+		int l3 = anIntArrayArrayArray440[i][j1][k1] - cameraY;
+		int i4 = anIntArrayArrayArray440[i][j1 + 1][k1] - cameraY;
+		int j4 = anIntArrayArrayArray440[i][j1 + 1][k1 + 1] - cameraY;
+		int k4 = anIntArrayArrayArray440[i][j1][k1 + 1] - cameraY;
 		int l4 = z1 * l + i2 * i1 >> 16;
 		z1 = z1 * i1 - i2 * l >> 16;
 		i2 = l4;
@@ -1520,7 +1520,7 @@ public final class WorldController {
 									class43.anInt720);
 						}
 					} else {
-						Rasterizer.method374(y3, y4, y2, x3, x4, x2, class43.anInt718, class43.anInt719,
+						Rasterizer.drawGouraudTriangle(y3, y4, y2, x3, x4, x2, class43.anInt718, class43.anInt719,
 								class43.anInt717);
 					}
 				}
@@ -1534,7 +1534,7 @@ public final class WorldController {
 				}
 			} else {
 				int i7 = anIntArray485[class43.anInt720];
-				Rasterizer.method374(y3, y4, y2, x3, x4, x2, method317(i7, class43.anInt718),
+				Rasterizer.drawGouraudTriangle(y3, y4, y2, x3, x4, x2, method317(i7, class43.anInt718),
 						method317(i7, class43.anInt719), method317(i7, class43.anInt717));
 			}
 			if (Configuration.distanceFog) {
@@ -1554,7 +1554,7 @@ public final class WorldController {
 						Rasterizer.drawMaterializedTriangle(y1, y2, y4, x1, x2, x4, class43.anInt716, class43.anInt717,
 								class43.anInt719, i2, i3, l1, l3, i4, k4, z1, z2, z4, class43.anInt720);
 					} else {
-						Rasterizer.method374(y1, y2, y4, x1, x2, x4, class43.anInt716, class43.anInt717,
+						Rasterizer.drawGouraudTriangle(y1, y2, y4, x1, x2, x4, class43.anInt716, class43.anInt717,
 								class43.anInt719);
 					}
 				}
@@ -1564,7 +1564,7 @@ public final class WorldController {
 							i2, i3, l1, l3, i4, k4, z1, z2, z4, class43.anInt720);
 				} else {
 					int j7 = anIntArray485[class43.anInt720];
-					Rasterizer.method374(y1, y2, y4, x1, x2, x4, method317(j7, class43.anInt716),
+					Rasterizer.drawGouraudTriangle(y1, y2, y4, x1, x2, x4, method317(j7, class43.anInt716),
 							method317(j7, class43.anInt717), method317(j7, class43.anInt719));
 				}
 			}
@@ -1578,8 +1578,8 @@ public final class WorldController {
 		int k1 = class40.anIntArray673.length;
 		for (int l1 = 0; l1 < k1; l1++) {
 			int i2 = class40.anIntArray673[l1] - anInt455;
-			int k2 = class40.anIntArray674[l1] - anInt456;
-			int i3 = class40.anIntArray675[l1] - anInt457;
+			int k2 = class40.anIntArray674[l1] - cameraY;
+			int i3 = class40.anIntArray675[l1] - cameraZ;
 			int k3 = i3 * k + i2 * j1 >> 16;
 			i3 = i3 * j1 - i2 * k >> 16;
 			i2 = k3;
@@ -1639,7 +1639,7 @@ public final class WorldController {
 										class40.anIntArray682[j2]);
 							}
 						} else {
-							Rasterizer.method374(y1, y2, y3, x1, x2, x3, class40.anIntArray676[j2],
+							Rasterizer.drawGouraudTriangle(y1, y2, y3, x1, x2, x3, class40.anIntArray676[j2],
 									class40.anIntArray677[j2], class40.anIntArray678[j2]);
 						}
 					}
@@ -1659,7 +1659,7 @@ public final class WorldController {
 					}
 				} else {
 					int k5 = anIntArray485[class40.anIntArray682[j2]];
-					Rasterizer.method374(y1, y2, y3, x1, x2, x3, method317(k5, class40.anIntArray676[j2]),
+					Rasterizer.drawGouraudTriangle(y1, y2, y3, x1, x2, x3, method317(k5, class40.anIntArray676[j2]),
 							method317(k5, class40.anIntArray677[j2]), method317(k5, class40.anIntArray678[j2]));
 				}
 				if (Configuration.distanceFog) {
@@ -1729,10 +1729,10 @@ public final class WorldController {
 					class47.anInt798 = 2;
 					j3 = -j3;
 				}
-				class47.anInt801 = (class47.anInt794 - anInt457 << 8) / j3;
-				class47.anInt802 = (class47.anInt795 - anInt457 << 8) / j3;
-				class47.anInt803 = (class47.anInt796 - anInt456 << 8) / j3;
-				class47.anInt804 = (class47.anInt797 - anInt456 << 8) / j3;
+				class47.anInt801 = (class47.anInt794 - cameraZ << 8) / j3;
+				class47.anInt802 = (class47.anInt795 - cameraZ << 8) / j3;
+				class47.anInt803 = (class47.anInt796 - cameraY << 8) / j3;
+				class47.anInt804 = (class47.anInt797 - cameraY << 8) / j3;
 				aClass47Array476[anInt475++] = class47;
 				continue;
 			}
@@ -1754,7 +1754,7 @@ public final class WorldController {
 					}
 				if (!flag1)
 					continue;
-				int k3 = anInt457 - class47.anInt794;
+				int k3 = cameraZ - class47.anInt794;
 				if (k3 > 32) {
 					class47.anInt798 = 3;
 				} else {
@@ -1765,11 +1765,11 @@ public final class WorldController {
 				}
 				class47.anInt799 = (class47.anInt792 - anInt455 << 8) / k3;
 				class47.anInt800 = (class47.anInt793 - anInt455 << 8) / k3;
-				class47.anInt803 = (class47.anInt796 - anInt456 << 8) / k3;
-				class47.anInt804 = (class47.anInt797 - anInt456 << 8) / k3;
+				class47.anInt803 = (class47.anInt796 - cameraY << 8) / k3;
+				class47.anInt804 = (class47.anInt797 - cameraY << 8) / k3;
 				aClass47Array476[anInt475++] = class47;
 			} else if (class47.anInt791 == 4) {
-				int j1 = class47.anInt796 - anInt456;
+				int j1 = class47.anInt796 - cameraY;
 				if (j1 > 128) {
 					int i2 = (class47.anInt789 - anInt454) + 25;
 					if (i2 < 0)
@@ -1799,8 +1799,8 @@ public final class WorldController {
 							class47.anInt798 = 5;
 							class47.anInt799 = (class47.anInt792 - anInt455 << 8) / j1;
 							class47.anInt800 = (class47.anInt793 - anInt455 << 8) / j1;
-							class47.anInt801 = (class47.anInt794 - anInt457 << 8) / j1;
-							class47.anInt802 = (class47.anInt795 - anInt457 << 8) / j1;
+							class47.anInt801 = (class47.anInt794 - cameraZ << 8) / j1;
+							class47.anInt802 = (class47.anInt795 - cameraZ << 8) / j1;
 							aClass47Array476[anInt475++] = class47;
 						}
 					}
@@ -1856,7 +1856,7 @@ public final class WorldController {
 				return method324(i1, i2, j1) && method324(i1, i2, j1 + 128);
 			}
 			if (l == 2) {
-				if (j1 < anInt457) {
+				if (j1 < cameraZ) {
 					if (!method324(i1, k1, j1 + 128))
 						return false;
 					if (!method324(i1 + 128, k1, j1 + 128))
@@ -1886,7 +1886,7 @@ public final class WorldController {
 				return method324(i1 + 128, i2, j1) && method324(i1 + 128, i2, j1 + 128);
 			}
 			if (l == 8) {
-				if (j1 > anInt457) {
+				if (j1 > cameraZ) {
 					if (!method324(i1, k1, j1))
 						return false;
 					if (!method324(i1 + 128, k1, j1))
@@ -2038,8 +2038,8 @@ public final class WorldController {
 	private static int anInt453;
 	private static int anInt454;
 	private static int anInt455;
-	private static int anInt456;
-	private static int anInt457;
+	private static int cameraY;
+	private static int cameraZ;
 	private static int anInt458;
 	private static int anInt459;
 	private static int anInt460;

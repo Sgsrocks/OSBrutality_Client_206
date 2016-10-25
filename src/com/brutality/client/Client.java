@@ -34,6 +34,7 @@ import com.brutality.client.cache.graphics.TextDrawingArea;
 import com.brutality.client.draw.DrawingArea;
 import com.brutality.client.draw.RSImageProducer;
 import com.brutality.client.draw.Rasterizer;
+import com.brutality.client.draw.RendererLock;
 import com.brutality.client.draw.Texture;
 import com.brutality.client.entity.Animable;
 import com.brutality.client.entity.Animable_Sub3;
@@ -4508,10 +4509,12 @@ public class Client extends RSApplet {
         RSSocket rsSocket = socketStream;
         loggedIn = false;
         loginFailures = 0;
-        if(captchaDialog != null) {
-        	captchaDialog.dispose();
-        	captchaDialog = null;
-        	captchaAnswer = null;
+        if (Constants.ENABLE_CAPTCHA) {
+	        if(captchaDialog != null) {
+	        	captchaDialog.dispose();
+	        	captchaDialog = null;
+	        	captchaAnswer = null;
+	        }
         }
         login(myUsername, myPassword, true);
         if (!loggedIn)
@@ -8674,25 +8677,30 @@ public class Client extends RSApplet {
 	            	for(int dd = 0; dd < length; dd++)
 	            		captcha[dd] = (byte) socketStream.read();
 	            	
-	    			InputStream in = new ByteArrayInputStream(captcha);
-	    			BufferedImage img = ImageIO.read(in);
-	
-	                if(captchaDialog != null) {
-	                	captchaDialog.dispose();
-	                	captchaDialog = null;
+
+	                if (Constants.ENABLE_CAPTCHA) {
+		    			InputStream in = new ByteArrayInputStream(captcha);
+		    			BufferedImage img = ImageIO.read(in);
+		
+		                if(captchaDialog != null) {
+		                	captchaDialog.dispose();
+		                	captchaDialog = null;
+		                }
+	                	captchaDialog = showCaptcha(img);
+	                	captchaRequired = true;	
 	                }
-	    			captchaDialog = showCaptcha(img);
-	    			captchaRequired = true;	
 	            } else if(captcha2 == 2) {
 	            	num1 = socketStream.read();
 	            	num2 = socketStream.read();
 	            	cType = socketStream.read();
-	                if(captchaDialog != null) {
-	                	captchaDialog.dispose();
-	                	captchaDialog = null;
+	                if (Constants.ENABLE_CAPTCHA) {
+	                	if(captchaDialog != null) {
+	                		captchaDialog.dispose();
+	                		captchaDialog = null;
+	                	}
+	                	captchaDialog = showSimpleCaptcha();
+	                	captchaRequired = true;	
 	                }
-	    			captchaDialog = showSimpleCaptcha();
-	            	captchaRequired = true;	
 	            } else {
 	            	captchaRequired = false;
 	            }
@@ -14593,6 +14601,10 @@ public class Client extends RSApplet {
                     if (dialogID != -1)
                         inputTaken = true;
                 }
+                if(k8 == 108 && byte0 == 0) {
+					autocast = false;
+					autoCastId = 0;
+                }
                 pktType = -1;
                 return true;
  
@@ -14753,10 +14765,12 @@ public class Client extends RSApplet {
         int k2 = Rasterizer.anInt1481;
         Model.aBoolean1684 = true;
         Model.anInt1687 = 0;
-        Model.anInt1685 = super.mouseX - 4;
-        Model.anInt1686 = super.mouseY - 4;
+        Model.mouseX = super.mouseX - 4;
+        Model.mouseY = super.mouseY - 4;
         DrawingArea.setAllPixelsToZero();
         // DrawingArea.drawPixels(2000, 0, 0, 0xC8C0A8, 2000);
+        if(RendererLock.MULTI)
+        	RendererLock.prepare();
         if (Configuration.distanceFog) {
             if (!switching) {
                 if (currentFogColor != fadingTo)
@@ -14778,6 +14792,10 @@ public class Client extends RSApplet {
         if (loggedIn) {
             try {
                 worldController.method313(xCameraPos, yCameraPos, xCameraCurve, zCameraPos, j, yCameraCurve);
+                if(RendererLock.MULTI) {
+                	RendererLock.startSoftware();
+                	RendererLock.endSoftware();
+                }
                 worldController.clearObj5Cache();
             } catch (Exception e) {
             }

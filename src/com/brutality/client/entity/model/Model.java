@@ -2344,8 +2344,8 @@ public class Model extends Animable {
                                                 k4 /= i3;
                                                 i5 /= k5;
                                         }
-                                        int i6 = anInt1685 - Rasterizer.centerX;
-                                        int k6 = anInt1686 - Rasterizer.centerY;
+                                        int i6 = mouseX - Rasterizer.centerX;
+                                        int k6 = mouseY - Rasterizer.centerY;
                                         if (i6 > k3 && i6 < l3 && k6 > i5 && k6 < k4)
                                                 if (aBoolean1659)
                                                         anIntArray1688[anInt1687++] = i2;
@@ -2422,7 +2422,7 @@ public class Model extends Animable {
                                         anIntArrayArray1672[j5][anIntArray1671[j5]++] = k;
                                 } else {
                                         if (flag1
-                                                        && method486(anInt1685, anInt1686,
+                                                        && method486(mouseX, mouseY,
                                                                         anIntArray1666[l], anIntArray1666[k1],
                                                                         anIntArray1666[j2], i3, l3, k4)) {
                                                 anIntArray1688[anInt1687++] = i;
@@ -2592,7 +2592,7 @@ public class Model extends Animable {
                 else
                         i1 = anIntArray1637[i] & 3;
                 if (i1 == 0) {
-                        Rasterizer.method374(anIntArray1666[j], anIntArray1666[k],
+                        Rasterizer.drawGouraudTriangle(anIntArray1666[j], anIntArray1666[k],
                                         anIntArray1666[l], anIntArray1665[j], anIntArray1665[k],
                                         anIntArray1665[l], anIntArray1634[i], anIntArray1635[i],
                                         anIntArray1636[i]);
@@ -2797,7 +2797,7 @@ public class Model extends Animable {
                                 else
                                         l7 = anIntArray1637[i] & 3;
                                 if (l7 == 0)
-                                        Rasterizer.method374(i7, j7, k7, j3, j4, j5,
+                                        Rasterizer.drawGouraudTriangle(i7, j7, k7, j3, j4, j5,
                                                         anIntArray1680[0], anIntArray1680[1],
                                                         anIntArray1680[2]);
                                 else if (l7 == 1)
@@ -2843,10 +2843,10 @@ public class Model extends Animable {
                                 else
                                         i8 = anIntArray1637[i] & 3;
                                 if (i8 == 0) {
-                                        Rasterizer.method374(i7, j7, k7, j3, j4, j5,
+                                        Rasterizer.drawGouraudTriangle(i7, j7, k7, j3, j4, j5,
                                                         anIntArray1680[0], anIntArray1680[1],
                                                         anIntArray1680[2]);
-                                        Rasterizer.method374(i7, k7, anIntArray1679[3], j3, j5,
+                                        Rasterizer.drawGouraudTriangle(i7, k7, anIntArray1679[3], j3, j5,
                                                         anIntArray1678[3], anIntArray1680[0],
                                                         anIntArray1680[2], anIntArray1680[3]);
                                         return;
@@ -2984,8 +2984,8 @@ public class Model extends Animable {
         static int anInt1682;
         static int anInt1683;
         public static boolean aBoolean1684;
-        public static int anInt1685;
-        public static int anInt1686;
+        public static int mouseX;
+        public static int mouseY;
         public static int anInt1687;
         public static int anIntArray1688[] = new int[1000];
         public static int modelIntArray1[];
