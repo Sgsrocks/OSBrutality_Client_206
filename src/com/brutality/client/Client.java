@@ -66,6 +66,57 @@ import com.brutality.client.sound.Sounds;
 
 public class Client extends RSApplet {
 	
+	public void drawTargetInfo(){
+		Entity entity = targetedplayer ? playerArray[targetindex] : npcArray[targetindex];
+		if( entity == null || entity.maxHealth < 1 || entity.currentHealth < 1)
+			return;
+		String name = targetedplayer ? playerArray[targetindex].name : npcArray[targetindex].desc.name;
+		
+		double percentage =  entity.currentHealth / entity.maxHealth;
+		int width = (int) (135*percentage);
+		DrawingArea.drawAlphaGradient(3, 13, 145, 55, 000000, 000000, 85);
+		newRegularFont.drawCenteredString(name, 75, 26, 0xFDFDFD, 1);
+		DrawingArea.drawAlphaGradient(9 + width, 31, 135 - width, 15, 0xCC0000, 0xCC0000, 100);
+		DrawingArea.drawAlphaGradient(9, 31, width, 15, 0x09900, 0x09900, 100);
+		newRegularFont.drawCenteredString(entity.currentHealth+" / "+ entity.maxHealth, 75, 43, 0xFDFDFD, 1);
+	//	newRegularFont.drawRAString(name, 30, 61, 0xFDFDFD, 1);
+	//	cacheSprite[55].drawAdvancedSprite(7, 50);
+	}
+	
+
+	
+	private void drawTargetInfoa() {
+		int size = 100;
+		Entity entity = targetedplayer ? playerArray[targetindex] : npcArray[targetindex];
+		if( entity == null || entity.maxHealth < 1 || entity.currentHealth < 1)
+			return;
+		String name = targetedplayer ? playerArray[targetindex].name : npcArray[targetindex].desc.name;
+
+		int spriteDrawY = 20;
+		int spriteDrawX = 10;
+		if (spriteDrawX > -1) {
+			int i1 = (entity.currentHealth * size) / entity.maxHealth;
+
+			if (i1 > size) {
+				i1 = size;
+			}
+
+			DrawingArea.drawPixels(5, spriteDrawY, spriteDrawX, 65280, i1);
+			DrawingArea.drawPixels(5, spriteDrawY, spriteDrawX + i1, 0xff0000, size - i1);
+			
+	    	newRegularFont.drawCenteredString((entity.currentHealth+" / "+ entity.maxHealth), 75, 43, 0xFDFDFD, 1);
+	    	int textlength = newRegularFont.getTextWidth(name);
+	    		newRegularFont.drawRAString(name, 30, 61, 0xFDFDFD, 1);
+	    		
+	    		cacheSprite[55].drawAdvancedSprite(7, 50);
+	    	
+		}
+
+	}
+	
+	int targetindex;
+	boolean targetedplayer;
+	
 	public static boolean rememberMe = true;
 	
 	public static boolean interpolateAnimations = true;
@@ -5209,6 +5260,8 @@ public class Client extends RSApplet {
                 crossType = 2;
                 crossIndex = 0;
                 anInt986 += i1;
+                targetindex = i1;
+                targetedplayer = true;
                 if (anInt986 >= 54) {
                     stream.createFrame(189);
                     stream.writeWordBigEndian(234);
@@ -5627,6 +5680,8 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
+                targetindex = i1;
+                targetedplayer = false;
                 stream.createFrame(131);
                 stream.writeLEShortA(i1);
                 stream.method432(anInt1137);
@@ -5666,6 +5721,8 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
+                targetindex = i1;
+                targetedplayer = false;
                 stream.createFrame(72);
                 stream.method432(i1);
             }
@@ -5679,6 +5736,8 @@ public class Client extends RSApplet {
                 crossY = super.saveClickY;
                 crossType = 2;
                 crossIndex = 0;
+                targetindex = i1;
+                targetedplayer = true;
                 stream.createFrame(249);
                 stream.method432(i1);
                 stream.writeLEShort(anInt1137);
@@ -9298,8 +9357,8 @@ public class Client extends RSApplet {
                 int j2 = stream.method427();
                 npc.updateHitData(j2, j1, loopCycle);
                 npc.loopCycleStatus = loopCycle + 300;
-                npc.currentHealth = stream.method426();
-                npc.maxHealth = stream.readUnsignedByte();
+                npc.currentHealth = stream.readUnsignedWord();
+                npc.maxHealth = stream.readUnsignedWord();
             }
             if ((l & 0x80) != 0) {
                 npc.anInt1520 = stream.readUnsignedWord();
@@ -9327,8 +9386,8 @@ public class Client extends RSApplet {
                 int k2 = stream.method428();
                 npc.updateHitData(k2, l1, loopCycle);
                 npc.loopCycleStatus = loopCycle + 300;
-                npc.currentHealth = stream.method428();
-                npc.maxHealth = stream.method427();
+                npc.currentHealth = stream.readUnsignedWord();
+                npc.maxHealth = stream.readUnsignedWord();
             }
             if ((l & 2) != 0) {
                 npc.desc = EntityDef.forID(stream.method436());
@@ -11785,7 +11844,7 @@ public class Client extends RSApplet {
             }
  
         }
-    }
+    }	
     
    private void determineMenuSize() {
 		int boxLength = newBoldFont.getTextWidth("Choose option");
@@ -14802,6 +14861,7 @@ public class Client extends RSApplet {
         }
         updateEntities();
         drawHeadIcon();
+        drawTargetInfo();
         method37(k2);
         if (loggedIn) {
             if (Configuration.clientSize != 0) {
