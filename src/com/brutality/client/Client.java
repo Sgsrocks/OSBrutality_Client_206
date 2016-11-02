@@ -4150,7 +4150,7 @@ public class Client extends RSApplet {
                 if (activeInterfaceType == 3)
                     inputTaken = true;
                 activeInterfaceType = 0;
-                if (aBoolean1242 && anInt989 >= 12) {
+                if (aBoolean1242 && anInt989 >= Constants.ITEM_PRESS_DURATION) {
                     lastActiveInvInterface = -1;
                     processRightClick();
                     if (anInt1084 == 5382) {
@@ -10671,7 +10671,7 @@ public class Client extends RSApplet {
                                                 k6 = 0;
                                             if (j7 < 5 && j7 > -5)
                                                 j7 = 0;
-                                            if (anInt989 < 12) {
+                                            if (anInt989 < Constants.ITEM_PRESS_DURATION) {
                                                 k6 = 0;
                                                 j7 = 0;
                                             }
@@ -15324,7 +15324,7 @@ public class Client extends RSApplet {
         cButtonCPos = 0;
  
        // server = Configuration.localHost ? Configuration.localAddress : Configuration.liveAddress;
-		server = "127.0.0.1";
+	
         anIntArrayArray825 = new int[104][104];
         friendsNodeIDs = new int[200];
         groundArray = new NodeList[4][104][104];
@@ -15902,7 +15902,7 @@ public class Client extends RSApplet {
     private int publicChatMode;
     private static int anInt1288;
     public static int anInt1290;
-    public static String server = "";
+    public static String server = "127.0.0.1";
     public static int currentFogColor = 0x000000;
     public int drawCount;
     public int fullscreenInterfaceID;
