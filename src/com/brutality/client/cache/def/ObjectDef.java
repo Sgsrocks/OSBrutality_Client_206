@@ -50,6 +50,14 @@ public final class ObjectDef {
 //		}
 		
 		switch (i) {
+		case 411:
+			objectDef.name = "Spec altar";
+			break;
+		case 6552:
+			objectDef.actions[0] = "Pray-at Normal";
+			objectDef.actions[2] = "Pray-at Ancient";
+			objectDef.actions[3] = "Pray-at Lunar";
+			break;
 
 		case 1990:
 			objectDef.name = "Survival Crate";

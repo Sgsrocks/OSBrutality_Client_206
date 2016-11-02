@@ -42,10 +42,29 @@ public final class EntityDef {
 			entityDef.description = "He will sell you wares from his ranger days".getBytes(); // NPC
 																								// description
 		}
+		if (i == 527) { // NPC ID
+			entityDef.actions = new String[5];
+			entityDef.actions[0] = "Armour";
+			entityDef.actions[2] = "Weapons";
+			entityDef.actions[3] = "Supplies";
+			entityDef.name = "PK Store"; // NPC name
+			//entityDef.description = "From the Wizarding world of...Oh wait he just sells Magic stuff now".getBytes(); // NPC
+																														// description
+		}
+		if (i == 637) { // NPC ID
+			entityDef.actions = new String[5];
+			entityDef.actions[0] = "Magic";
+			entityDef.actions[2] = "Range";
+			entityDef.name = "PK Store"; // NPC name
+			//entityDef.description = "From the Wizarding world of...Oh wait he just sells Magic stuff now".getBytes(); // NPC
+																														// description
+		}
 		if (i == 4397) { // NPC ID
 			entityDef.actions = new String[5];
-			entityDef.actions[0] = "Talk-to";
-			entityDef.name = "Wizarding Mage Shop"; // NPC name
+			entityDef.actions[0] = "Melee";
+			entityDef.actions[2] = "Range";
+			entityDef.actions[3] = "Magic";
+			entityDef.name = "PK Point Store"; // NPC name
 			entityDef.description = "From the Wizarding world of...Oh wait he just sells Magic stuff now".getBytes(); // NPC
 																														// description
 		}

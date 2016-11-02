@@ -502,7 +502,7 @@ public final class ItemDef {
 			break;
 
 		case 10594:
-			itemDef.name = "OS-Brutality Vote Book";
+			itemDef.name = "OSBrutality Vote Book";
 			itemDef.description = "This item is obtained by voting for the server, vote today!";
 			itemDef.itemActions = new String[5];
 			itemDef.itemActions[0] = "Claim Vote";

@@ -65,23 +65,48 @@ import com.brutality.client.net.RSSocket;
 import com.brutality.client.sound.Sounds;
 
 public class Client extends RSApplet {
+
+	private boolean hoverOverlay;
 	
-	public void drawTargetInfo(){
+	public void drawTargetInfo() {
 		Entity entity = targetedplayer ? playerArray[targetindex] : npcArray[targetindex];
-		if( entity == null || entity.maxHealth < 1 || entity.currentHealth < 1)
+		if (entity == null) {
 			return;
-		String name = targetedplayer ? playerArray[targetindex].name : npcArray[targetindex].desc.name;
+		}
+		if (RSInterface.interfaceCache[35000] == null) {
+			return;
+		}
+
+		if (entity instanceof Npc && ((Npc) entity).desc == null) {
+			return;
+		}
+
+		if (entity.maxHealth == 0) {
+			return;
+		}
 		
-		double percentage =  entity.currentHealth / entity.maxHealth;
-		int width = (int) (135*percentage);
-		DrawingArea.drawAlphaGradient(3, 13, 145, 55, 000000, 000000, 85);
-		newRegularFont.drawCenteredString(name, 75, 26, 0xFDFDFD, 1);
-		DrawingArea.drawAlphaGradient(9 + width, 31, 135 - width, 15, 0xCC0000, 0xCC0000, 100);
-		DrawingArea.drawAlphaGradient(9, 31, width, 15, 0x09900, 0x09900, 100);
-		newRegularFont.drawCenteredString(entity.currentHealth+" / "+ entity.maxHealth, 75, 43, 0xFDFDFD, 1);
-	//	newRegularFont.drawRAString(name, 30, 61, 0xFDFDFD, 1);
-	//	cacheSprite[55].drawAdvancedSprite(7, 50);
+		if(!hoverOverlay) {
+			return;
+		}
+		
+		String name = targetedplayer ? playerArray[targetindex].name : npcArray[targetindex].desc.name;
+		double oponentsMaxHealth = entity.maxHealth;
+		double oponentsHealth = entity.currentHealth;
+		double percentage = oponentsHealth / oponentsMaxHealth;
+
+		if (percentage > 1) {
+			percentage = 1;
+		}
+		int width = (int) (135 * percentage);
+		DrawingArea.drawAlphaGradient(3, 19, 145, 37, 000000, 000000, 100);
+		DrawingArea.drawAlphaGradient(3, 19, 145, 37, 000000, 000000, 85);
+		DrawingArea.drawAlphaGradient(9, 37, 135, 15, 0xCC0000, 0xCC0000, 100);// Health
+		DrawingArea.drawAlphaGradient(9, 37, width, 15, 0x09900, 0x09900, 250);// Health
+		newSmallFont.drawCenteredString((int) oponentsHealth + " / " + (int) oponentsMaxHealth, 75, 49, 0xFDFDFD,
+				10);
+		newSmallFont.drawCenteredString(name, 75, 32, 0xFDFDFD, 10);
 	}
+	
 	
 
 	
@@ -2508,7 +2533,7 @@ public class Client extends RSApplet {
 	                                headIcons[player.headIcon].drawSprite(spriteDrawX - 12, spriteDrawY - l);
 	                                l += 18;
 	                            }
-	                            if (player.bhSkull < 13) {
+	                            if (player.bhSkull < 7) {
 	                            	bhSkull[player.bhSkull].drawSprite(spriteDrawX - 12, spriteDrawY - l);
 	                                l += 17;
 	                            }
@@ -3664,12 +3689,93 @@ public class Client extends RSApplet {
         }
     }*/
     
-    public void loadTitleScreen() {
+   /* public void loadTitleScreen() {
     	if(Configuration.normalLogin == true) {
 			aBackground_966 = new Background(titleStreamLoader, "titlebox", 0);
 			aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
 		} else {
 }
+		aBackgroundArray1152s = new Background[12];
+		int j = 0;
+		try {
+			j = Integer.parseInt(getParameter("fl_icon"));
+		} catch (Exception _ex) {
+		}
+		if (j == 0) {
+			for (int k = 0; k < 12; k++)
+				aBackgroundArray1152s[k] = new Background(titleStreamLoader,
+						"runes", k);
+
+		} else {
+			for (int l = 0; l < 12; l++)
+				aBackgroundArray1152s[l] = new Background(titleStreamLoader,
+						"runes", 12 + (l & 3));
+
+		}
+		aClass30_Sub2_Sub1_Sub1_1201 = new Sprite(128, 265);
+		aClass30_Sub2_Sub1_Sub1_1202 = new Sprite(128, 265);
+		System.arraycopy(aRSImageProducer_1110.anIntArray315, 0,
+				aClass30_Sub2_Sub1_Sub1_1201.myPixels, 0, 33920);
+
+		System.arraycopy(aRSImageProducer_1111.anIntArray315, 0,
+				aClass30_Sub2_Sub1_Sub1_1202.myPixels, 0, 33920);
+
+		anIntArray851 = new int[256];
+		for (int k1 = 0; k1 < 64; k1++)
+			anIntArray851[k1] = k1 * 0x40000;
+
+		for (int l1 = 0; l1 < 64; l1++)
+			anIntArray851[l1 + 64] = 0xff0000 + 1024 * l1;
+
+		for (int i2 = 0; i2 < 64; i2++)
+			anIntArray851[i2 + 128] = 0xFFFF00 + 4 * i2;
+
+		for (int j2 = 0; j2 < 64; j2++)
+			anIntArray851[j2 + 192] = 0xffffff;
+
+		anIntArray852 = new int[256];
+		for (int k2 = 0; k2 < 64; k2++)
+			anIntArray852[k2] = k2 * 1024;
+
+		for (int l2 = 0; l2 < 64; l2++)
+			anIntArray852[l2 + 64] = 65280 + 4 * l2;
+
+		for (int i3 = 0; i3 < 64; i3++)
+			anIntArray852[i3 + 128] = 65535 + 0x40000 * i3;
+
+		for (int j3 = 0; j3 < 64; j3++)
+			anIntArray852[j3 + 192] = 0xffffff;
+
+		anIntArray853 = new int[256];
+		for (int k3 = 0; k3 < 64; k3++)
+			anIntArray853[k3] = k3 * 4;
+
+		for (int l3 = 0; l3 < 64; l3++)
+			anIntArray853[l3 + 64] = 255 + 0x40000 * l3;
+
+		for (int i4 = 0; i4 < 64; i4++)
+			anIntArray853[i4 + 128] = 0xff00ff + 1024 * i4;
+
+		for (int j4 = 0; j4 < 64; j4++)
+			anIntArray853[j4 + 192] = 0xffffff;
+
+		anIntArray850 = new int[256];
+		anIntArray1190 = new int[32768];
+		anIntArray1191 = new int[32768];
+		randomizeBackground(null);
+		anIntArray828 = new int[32768];
+		anIntArray829 = new int[32768];
+		drawLoadingText(10, "Connecting to fileserver");
+		if (!aBoolean831) {
+			drawFlames = true;
+			aBoolean831 = true;
+			startRunnable(this, 2);
+		}
+	}*/
+    
+    public void loadTitleScreen() {
+		aBackground_966 = new Background(titleStreamLoader, "titlebox", 0);
+		aBackground_967 = new Background(titleStreamLoader, "titlebutton", 0);
 		aBackgroundArray1152s = new Background[12];
 		int j = 0;
 		try {
@@ -3886,7 +3992,7 @@ public class Client extends RSApplet {
             return super.getAppletContext();
     }
  
-/*    private void drawLogo() {
+  private void drawLogo() {
         byte abyte0[] = titleStreamLoader.getDataForName("title.dat");
         Sprite sprite = new Sprite(abyte0, this);
         aRSImageProducer_1110.initDrawingArea();
@@ -3916,7 +4022,7 @@ public class Client extends RSApplet {
         }
         sprite = null;
         System.gc();
-    }*/
+    }
  
 	private void processOnDemandQueue() {
 		do {
@@ -4304,7 +4410,7 @@ public class Client extends RSApplet {
             }
  
     }
-    private void resetImageProducers() {
+   /* private void resetImageProducers() {
 		if (aRSImageProducer_1107 != null)
 			return;
 		super.fullGameScreen = null;
@@ -4340,6 +4446,44 @@ public class Client extends RSApplet {
 			loadTitleScreen();
 		}
 		welcomeScreenRaised = true;
+	}*/
+    
+    private void resetImageProducers() {
+		if (aRSImageProducer_1107 != null)
+			return;
+		super.fullGameScreen = null;
+		aRSImageProducer_1166 = null;
+		aRSImageProducer_1164 = null;
+		aRSImageProducer_1163 = null;
+		aRSImageProducer_1165 = null;
+		aRSImageProducer_1125 = null;
+		chatAreaIP = null;
+		mapAreaIP = null;
+		tabAreaIP = null;
+		gameScreenIP = null;
+		aRSImageProducer_1110 = new RSImageProducer(128, 265, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1111 = new RSImageProducer(128, 265, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1107 = new RSImageProducer(509, 171, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1108 = new RSImageProducer(360, 132, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		loginScreenArea = new RSImageProducer(360, 200, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1112 = new RSImageProducer(202, 238, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1113 = new RSImageProducer(203, 238, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1114 = new RSImageProducer(74, 94, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1115 = new RSImageProducer(75, 94, getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		if (titleStreamLoader != null) {
+			drawLogo();
+			loadTitleScreen();
+		}
+		welcomeScreenRaised = true;
 	}
  
 	public int loginButtonint;
@@ -4348,7 +4492,7 @@ public class Client extends RSApplet {
 	public int textbox1;
 
 	@Override
-	void drawLoadingText(int i, String s) {
+	/*void drawLoadingText(int i, String s) {
 		anInt1079 = i;
 		aString1049 = s;
 		resetImageProducers();
@@ -4366,6 +4510,44 @@ public class Client extends RSApplet {
 		DrawingArea.drawPixels(30, 503 / 2 - 18 - byte1 + 2, (765 / 2 - 150) + i * 3, 0, 300 - i * 3);
 		chatTextDrawingArea.method389(0xffffff, s, (503 / 2 + 5) - byte1, 765 / 2);
 		loginScreenArea.drawGraphics(0, super.graphics, 0);
+	}*/
+	
+	void drawLoadingText(int i, String s) {
+		anInt1079 = i;
+		aString1049 = s;
+		resetImageProducers();
+		if (titleStreamLoader == null) {
+			super.drawLoadingText(i, s);
+			return;
+		}
+		loginScreenArea.initDrawingArea();
+		char c = '\u0168';
+		char c1 = '\310';
+		byte byte1 = 20;
+		chatTextDrawingArea.method389(0xffffff,
+				"OSBrutality is loading - please wait...", c1 / 2 - 26 - byte1,
+				c / 2);
+		int j = c1 / 2 - 18 - byte1;
+		DrawingArea.fillPixels(c / 2 - 152, 304, 34, 0x8B0000, j);
+		DrawingArea.fillPixels(c / 2 - 151, 302, 32, 0, j + 1);
+		DrawingArea.drawPixels(30, j + 2, c / 2 - 150, 0x8B0000, i * 3);
+		DrawingArea
+				.drawPixels(30, j + 2, (c / 2 - 150) + i * 3, 0, 300 - i * 3);
+		chatTextDrawingArea.method389(0xffffff, s, (c1 / 2 + 5) - byte1, c / 2);
+		loginScreenArea.drawGraphics(171, super.graphics, 202);
+		if (welcomeScreenRaised) {
+			welcomeScreenRaised = false;
+			if (!aBoolean831) {
+				aRSImageProducer_1110.drawGraphics(0, super.graphics, 0);
+				aRSImageProducer_1111.drawGraphics(0, super.graphics, 637);
+			}
+			aRSImageProducer_1107.drawGraphics(0, super.graphics, 128);
+			aRSImageProducer_1108.drawGraphics(371, super.graphics, 202);
+			aRSImageProducer_1112.drawGraphics(265, super.graphics, 0);
+			aRSImageProducer_1113.drawGraphics(265, super.graphics, 562);
+			aRSImageProducer_1114.drawGraphics(171, super.graphics, 128);
+			aRSImageProducer_1115.drawGraphics(171, super.graphics, 562);
+		}
 	}
  
     private void method65(int i, int j, int k, int l, RSInterface class9, int i1, boolean flag, int j1) {
@@ -4952,7 +5134,20 @@ public class Client extends RSApplet {
                     }
                     break;
                 case 27510:// Unused
-                	pushMessage("Currently disabled", 0, "");
+                	 sendFrame126("OFF", 27530);
+                     if (hoverOverlay) {
+                         hoverOverlay = false;
+                         sendFrame126("OFF", 27530);
+                         sendFrame126("", 27526);
+                     } else {
+                         hoverOverlay = true;
+                         sendFrame126("@gre@ON", 27526);
+                         sendFrame126("", 27530);
+                     }
+                     try {
+                         writeSettings();
+                     } catch (IOException e) {
+                     }
                     break;  
                 case 27532:
                     sendFrame126("OFF", 27531);
@@ -5318,9 +5513,6 @@ public class Client extends RSApplet {
                 sendFrame36(429, runClicked ? 0 : 1);
             }
         }
-	    if (menuActionName[i].contains("Use @gre@Special Attack")) {
-	            specialClicked = !specialClicked;
-	    }
         if (l == 1004) {
             if (tabInterfaceIDs[10] != -1) {
                 tabID = 10;
@@ -7959,10 +8151,10 @@ public class Client extends RSApplet {
     private final void minimapHovers() {
  		final boolean fixed = Configuration.clientSize == 0;
 		hpHover = fixed ? super.mouseX >= 690 && super.mouseX <= 745 && super.mouseY >= 13 && super.mouseY < 47 : super.mouseX >= Configuration.clientWidth - 216 && super.mouseX <= 159 && super.mouseY >= 13 && super.mouseY < 47;
-		prayHover = fixed ? super.mouseX >= 525 && super.mouseX <= 581 && super.mouseY >= 105 && super.mouseY < 139 : super.mouseX >= Configuration.clientWidth - 207 && super.mouseX <= Configuration.clientWidth - 151 && super.mouseY >= 105 && super.mouseY < 139;
+		prayHover = fixed ? super.mouseX >= 525 && super.mouseX <= 581 && super.mouseY >= 90 && super.mouseY < 115 : super.mouseX >= Configuration.clientWidth - 207 && super.mouseX <= Configuration.clientWidth - 151 &&  super.mouseY >= 90 && super.mouseY < 115;
 		runHover = fixed ? super.mouseX >= 558 && super.mouseX <= 613 && super.mouseY >= 132 && super.mouseY < 165 : super.mouseX >= Configuration.clientWidth - 174 && super.mouseX <= Configuration.clientWidth - 120 && super.mouseY >= 132 && super.mouseY < 165;
-		counterHover = fixed ? super.mouseX >= 518 && super.mouseX <= 542 && super.mouseY >= 45 && super.mouseY <= 69 : super.mouseX >= Configuration.clientWidth - 186 && super.mouseX <= Configuration.clientWidth - 158 && super.mouseY >= 41 && super.mouseY <= 65;
 		worldHover = fixed ? super.mouseX >= 718 && super.mouseX <= 748 && super.mouseY >= 22 && super.mouseY <= 50 : super.mouseX >= Configuration.clientWidth - 117 && super.mouseX <= Configuration.clientWidth - 86 && super.mouseY >= 153 && super.mouseY <= 186;
+		counterHover = fixed ? super.mouseX >= 518 && super.mouseX <= 542 && super.mouseY >= 25 && super.mouseY <= 50 : super.mouseX >= Configuration.clientWidth - 210 && super.mouseX <= Configuration.clientWidth - 190 && super.mouseY >= 25 && super.mouseY <= 50;
 		
 		specialHover = fixed ? super.mouseX >= 670 && super.mouseX <= 727
 				&& super.mouseY >= 133 && super.mouseY <= 164
@@ -8309,6 +8501,39 @@ public class Client extends RSApplet {
         }
     }
  
+    /*private void resetImageProducers2() {
+		if (chatAreaIP != null)
+			return;
+		nullLoader();
+		super.fullGameScreen = null;
+		aRSImageProducer_1107 = null;
+		aRSImageProducer_1108 = null;
+		titleScreen = null;
+		aRSImageProducer_1110 = null;
+		aRSImageProducer_1111 = null;
+		aRSImageProducer_1112 = null;
+		aRSImageProducer_1113 = null;
+		aRSImageProducer_1114 = null;
+		aRSImageProducer_1115 = null;
+		loginScreenArea = null;
+		gameLogo = null;
+		chatAreaIP = new RSImageProducer(516, 165,
+				getGameComponent());
+		mapAreaIP = new RSImageProducer(249, 168,
+				getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		if (Configuration.clientSize == 0) {
+			cacheSprite[19].drawSprite(0, 0);
+		}
+		tabAreaIP = new RSImageProducer(249, 335,
+				getGameComponent());
+		gameScreenIP = new RSImageProducer(512, 334,
+				getGameComponent());
+		DrawingArea.setAllPixelsToZero();
+		aRSImageProducer_1125 = new RSImageProducer(249, 45, getGameComponent());
+		welcomeScreenRaised = true;
+	}*/
+    
     private void resetImageProducers2() {
 		if (chatAreaIP != null)
 			return;
@@ -9612,6 +9837,28 @@ public class Client extends RSApplet {
         class30_sub1.anInt1301 = k;
         class30_sub1.anInt1300 = l;
     }
+    
+    public Sprite specorb0;
+	public Sprite specorb5;
+	public Sprite specorb10;
+	public Sprite specorb15;
+	public Sprite specorb20;
+	public Sprite specorb25;
+	public Sprite specorb30;
+	public Sprite specorb35;
+	public Sprite specorb40;
+	public Sprite specorb45;
+	public Sprite specorb50;
+	public Sprite specorb55;
+	public Sprite specorb60;
+	public Sprite specorb65;
+	public Sprite specorb70;
+	public Sprite specorb75;
+	public Sprite specorb80;
+	public Sprite specorb85;
+	public Sprite specorb90;
+	public Sprite specorb95;
+	public Sprite specorb100;
  
     void startUp() {
     	//new CacheDownloader(this).downloadCache(); //is 
@@ -9635,7 +9882,7 @@ public class Client extends RSApplet {
             newRegularFont = new RSFont(false, "p12_full", titleStreamLoader);
             newBoldFont = new RSFont(false, "b12_full", titleStreamLoader);
             newFancyFont = new RSFont(true, "q8_full", titleStreamLoader);
-            //drawLogo();
+            drawLogo();
             loadTitleScreen();
             StreamLoader streamLoader = streamLoaderForName(2, "config", "config", expectedCRCs[2], 30);
             StreamLoader streamLoader_1 = streamLoaderForName(3, "interface", "interface", expectedCRCs[3], 35);
@@ -11607,6 +11854,7 @@ public class Client extends RSApplet {
  
     private void draw3dScreen() {
     	drawParallelWidgets();
+    	drawTargetInfo();
         if (counterOn) {
             drawCounterOnScreen();
             if (drawTotalExperience) {
@@ -12808,7 +13056,7 @@ public class Client extends RSApplet {
 
 	private LoginScreenState loginState = LoginScreenState.LOGIN;
  
-	public void drawLoginScreen(boolean flag) {
+	/*public void drawLoginScreen(boolean flag) {
 		final int centerX = Configuration.clientWidth / 2;
 		final int centerY = Configuration.clientHeight / 2;
 		resetImageProducers();
@@ -12837,6 +13085,101 @@ public class Client extends RSApplet {
 		}
 		//aTextDrawingArea_1271.method382(0xFFFF00, 100, "MouseX: " + (super.mouseX - (Configuration.clientWidth / 2)) + " Mouse Y: " + (super.mouseY - (Configuration.clientHeight / 2)), 100, true);
  		loginScreenArea.drawGraphics(0, super.graphics, 0);
+	}*/
+	
+	public void drawLoginScreen(boolean flag) {
+		resetImageProducers();
+		loginScreenArea.initDrawingArea();
+		aBackground_966.drawBackground(0, 0);
+		char c = '\u0168';
+		char c1 = '\310';
+		if (loginScreenState == 0) {
+			int i = c1 / 2 + 80;
+			smallText.method382(0x75a9a9, c / 2, onDemandFetcher.statusString,
+					i, true);
+			i = c1 / 2 - 20;
+			chatTextDrawingArea.method382(0xffff00, c / 2,
+					"Welcome to OSBrutality", i, true);
+			i += 30;
+			int l = c / 2 - 80;
+			int k1 = c1 / 2 + 20;
+			aBackground_967.drawBackground(l - 73, k1 - 20);
+			chatTextDrawingArea.method382(0xffffff, l, "New user", k1 + 5, true);
+			l = c / 2 + 80;
+			aBackground_967.drawBackground(l - 73, k1 - 20);
+			chatTextDrawingArea.method382(0xffffff, l, "Existing user", k1 + 5, true);
+		}
+		if (loginScreenState == 2) {
+			int j = c1 / 2 - 40;
+			if (loginMessage1.length() > 0) {
+				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage1,
+						j - 15, true);
+				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage2,
+						j, true);
+				j += 30;
+			} else {
+				chatTextDrawingArea.method382(0xffff00, c / 2, loginMessage2,
+						j - 7, true);
+				j += 30;
+			}
+			chatTextDrawingArea
+					.method389(true, c / 2 - 90, 0xffffff, "Username: "
+							+ capitalize(myUsername)
+							+ ((loginScreenCursorPos == 0)
+									& (loopCycle % 40 < 20) ? "@yel@|" : ""), j);
+			// chatTextDrawingArea.method389(true, c / 2 - 90, 0xffffff,
+			// "Username: " + myUsername + ((loginScreenCursorPos == 0) &
+			// (loopCycle % 40 < 20) ? "@yel@|" : ""), j);
+			j += 15;
+			chatTextDrawingArea
+					.method389(true, c / 2 - 88, 0xffffff, "Password: "
+							+ TextClass.passwordAsterisks(myPassword)
+							+ ((loginScreenCursorPos == 1)
+									& (loopCycle % 40 < 20) ? "@yel@|" : ""), j);
+			j += 15;
+			if (!flag) {
+				int i1 = c / 2 - 80;
+				int l1 = c1 / 2 + 50;
+				aBackground_967.drawBackground(i1 - 73, l1 - 20);
+				chatTextDrawingArea.method382(0xffffff, i1, "Login", l1 + 5,
+						true);
+				i1 = c / 2 + 80;
+				aBackground_967.drawBackground(i1 - 73, l1 - 20);
+				chatTextDrawingArea.method382(0xffffff, i1, "Cancel", l1 + 5,
+						true);
+			}
+		}
+		if (loginScreenState == 3) {
+			chatTextDrawingArea.method382(0xffff00, c / 2, "Information",
+					c1 / 2 - 60, true);
+			int k = c1 / 2 - 35;
+			chatTextDrawingArea.method382(0xffff00, c / 2,
+					"Be sure you register", k, true);
+			k += 15;
+			chatTextDrawingArea.method382(0xffff00, c / 2, "on the forums", k,
+					true);
+			k += 15;
+			chatTextDrawingArea.method382(0xffff00, c / 2, "www.osbrutality.com",
+					k, true);
+			k += 15;
+			chatTextDrawingArea.method382(0xffff00, c / 2,
+					"Enjoy!", k, true);
+			k += 15;
+			int j1 = c / 2;
+			int i2 = c1 / 2 + 50;
+			aBackground_967.drawBackground(j1 - 73, i2 - 20);
+			chatTextDrawingArea.method382(0xffffff, j1, "Cancel", i2 + 5, true);
+		}
+		loginScreenArea.drawGraphics(171, super.graphics, 202);
+		if (welcomeScreenRaised) {
+			welcomeScreenRaised = false;
+			aRSImageProducer_1107.drawGraphics(0, super.graphics, 128);
+			aRSImageProducer_1108.drawGraphics(371, super.graphics, 202);
+			aRSImageProducer_1112.drawGraphics(265, super.graphics, 0);
+			aRSImageProducer_1113.drawGraphics(265, super.graphics, 562);
+			aRSImageProducer_1114.drawGraphics(171, super.graphics, 128);
+			aRSImageProducer_1115.drawGraphics(171, super.graphics, 562);
+		}
 	}
 
 	public void drawSmoothLoading(int i, String s) {
@@ -12903,7 +13246,32 @@ public class Client extends RSApplet {
 	}
 
 	private void drawFlames() {
-		
+		drawingFlames = true;
+		try {
+			long l = System.currentTimeMillis();
+			int i = 0;
+			int j = 20;
+			while (aBoolean831) {
+				calcFlamesPosition();
+				calcFlamesPosition();
+				doFlamesDrawing();
+				if (++i > 10) {
+					long l1 = System.currentTimeMillis();
+					int k = (int) (l1 - l) / 10 - j;
+					j = 40 - k;
+					if (j < 5)
+						j = 5;
+					i = 0;
+					l = l1;
+				}
+				try {
+					Thread.sleep(j);
+				} catch (Exception _ex) {
+				}
+			}
+		} catch (Exception _ex) {
+		}
+		drawingFlames = false;
 	}
 
 	public void raiseWelcomeScreen() {
@@ -13252,7 +13620,7 @@ public class Client extends RSApplet {
 		return false;
 	}
 	
-	private void processLoginScreenInput() {
+	/*private void processLoginScreenInput() {
 		final int centerX = Configuration.clientWidth / 2, centerY = Configuration.clientHeight / 2;
 		if (loginMessage1.length() > 0 || loginMessage2.length() > 0) {
             if (readChar(-796) == 10) {
@@ -13335,7 +13703,114 @@ public class Client extends RSApplet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
+	
+	 public void processLoginScreenInput() {
+			if (loginScreenState == 0) {
+				int i = super.myWidth / 2 - 80;
+				int l = super.myHeight / 2 + 20;
+				l += 20;
+				if (super.clickMode3 == 1 && super.saveClickX >= i - 75
+						&& super.saveClickX <= i + 75 && super.saveClickY >= l - 20
+						&& super.saveClickY <= l + 20) {
+					loginScreenState = 3;
+					loginScreenCursorPos = 0;
+				}
+				i = super.myWidth / 2 + 80;
+				if (super.clickMode3 == 1 && super.saveClickX >= i - 75
+						&& super.saveClickX <= i + 75 && super.saveClickY >= l - 20
+						&& super.saveClickY <= l + 20) {
+					loginMessage1 = "";
+					loginMessage2 = "Enter your username & password.";
+					loginScreenState = 2;
+					loginScreenCursorPos = 0;
+				}
+			} else {
+				if (loginScreenState == 2) {
+					int j = super.myHeight / 2 - 40;
+					j += 30;
+					j += 25;
+					if (super.clickMode3 == 1 && super.saveClickY >= j - 15
+							&& super.saveClickY < j)
+						loginScreenCursorPos = 0;
+					j += 15;
+					if (super.clickMode3 == 1 && super.saveClickY >= j - 15
+							&& super.saveClickY < j)
+						loginScreenCursorPos = 1;
+					j += 15;
+					int i1 = super.myWidth / 2 - 80;
+					int k1 = super.myHeight / 2 + 50;
+					k1 += 20;
+					if (super.clickMode3 == 1 && super.saveClickX >= i1 - 75
+							&& super.saveClickX <= i1 + 75
+							&& super.saveClickY >= k1 - 20
+							&& super.saveClickY <= k1 + 20) {
+						loginFailures = 0;
+						login(myUsername, myPassword, false);
+						if (loggedIn)
+							return;
+					}
+					i1 = super.myWidth / 2 + 80;
+					if (super.clickMode3 == 1 && super.saveClickX >= i1 - 75
+							&& super.saveClickX <= i1 + 75
+							&& super.saveClickY >= k1 - 20
+							&& super.saveClickY <= k1 + 20) {
+						loginScreenState = 0;
+						// myUsername = "";
+						// myPassword = "";
+					}
+					do {
+						int l1 = readChar(-796);
+						if (l1 == -1)
+							break;
+						boolean flag1 = false;
+						for (int i2 = 0; i2 < validUserPassChars.length(); i2++) {
+							if (l1 != validUserPassChars.charAt(i2))
+								continue;
+							flag1 = true;
+							break;
+						}
+
+						if (loginScreenCursorPos == 0) {
+							if (l1 == 8 && myUsername.length() > 0)
+								myUsername = myUsername.substring(0,
+										myUsername.length() - 1);
+							if (l1 == 9 || l1 == 10 || l1 == 13)
+								loginScreenCursorPos = 1;
+							if (flag1)
+								myUsername += (char) l1;
+							if (myUsername.length() > 12)
+								myUsername = myUsername.substring(0, 12);
+						} else if (loginScreenCursorPos == 1) {
+							if (l1 == 8 && myPassword.length() > 0)
+								myPassword = myPassword.substring(0,
+										myPassword.length() - 1);
+							if (l1 == 9 || l1 == 10 || l1 == 13)
+								if (myUsername == "")
+									loginScreenCursorPos = 0;
+								else if (myPassword == "") {
+								} else
+									login(myUsername, myPassword, false);
+							if (flag1)
+								myPassword += (char) l1;
+							if (myPassword.length() > 20)
+								myPassword = myPassword.substring(0, 20);
+						}
+					} while (true);
+					return;
+				}
+				if (loginScreenState == 3) {
+					int k = super.myWidth / 2;
+					int j1 = super.myHeight / 2 + 50;
+					j1 += 20;
+					if (super.clickMode3 == 1 && super.saveClickX >= k - 75
+							&& super.saveClickX <= k + 75
+							&& super.saveClickY >= j1 - 20
+							&& super.saveClickY <= j1 + 20)
+						loginScreenState = 0;
+				}
+			}
+		}
 
 	private void resetImage() {
 		DrawingArea.setAllPixelsToZero();
@@ -14865,7 +15340,7 @@ public class Client extends RSApplet {
         }
         updateEntities();
         drawHeadIcon();
-        drawTargetInfo();
+       // drawTargetInfo();
         method37(k2);
         if (loggedIn) {
             if (Configuration.clientSize != 0) {
@@ -14945,96 +15420,110 @@ public class Client extends RSApplet {
 			menuActionRow = 2;
 			}
 		}    
- 
-	private void drawSpecialOrb() {
-		try {
-			if (loadOrbs) {
-				String value = RSInterface.interfaceCache[155].message;
-				int spec = Integer.parseInt(value);
-				if (specialHover)
-					cacheSprite[56].drawSprite(Configuration.clientSize == 0 ? 153 : Configuration.clientWidth - 63,
-							Configuration.clientSize == 0 ? 131 : 150);
-				else
-					cacheSprite[42].drawSprite(Configuration.clientSize == 0 ? 154 : Configuration.clientWidth - 62,
-							Configuration.clientSize == 0 ? 132 : 151);
-				cacheSprite[5].myHeight = (int) (spec * 27 / 100);
-				cacheSprite[5].drawSprite(Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58,
-						Configuration.clientSize == 0 ? 135 : 155);
-				cacheSprite[14].drawSprite(Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58,
-
-						Configuration.clientSize == 0 ? 135 : 155);
-				cacheSprite[55].drawSprite(Configuration.clientSize == 0 ? 162 : Configuration.clientWidth - 53,
-						Configuration.clientSize == 0 ? 140 : 160);
-				smallText.method382(getOrbTextColor(spec),
-						Configuration.clientSize == 0 ? 198 : Configuration.clientWidth - 19, Integer.toString(spec),
-						Configuration.clientSize == 0 ? 158 : 177, true);
+    
+	private void drawosrsspec() {
+		int xOffset = Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58;
+		int yOffset = Configuration.clientSize == 0 ? 135 : 155;
+		specorb100 = new Sprite("Gameframe/specOrbs/0");
+		specorb95 = new Sprite("Gameframe/specOrbs/5");
+		specorb90 = new Sprite("Gameframe/specOrbs/10");
+		specorb85 = new Sprite("Gameframe/specOrbs/15");
+		specorb80 = new Sprite("Gameframe/specOrbs/20");
+		specorb75 = new Sprite("Gameframe/specOrbs/25");
+		specorb70 = new Sprite("Gameframe/specOrbs/30");
+		specorb65 = new Sprite("Gameframe/specOrbs/35");
+		specorb60 = new Sprite("Gameframe/specOrbs/40");
+		specorb55 = new Sprite("Gameframe/specOrbs/45");
+		specorb50 = new Sprite("Gameframe/specOrbs/50");
+		specorb45 = new Sprite("Gameframe/specOrbs/55");
+		specorb40 = new Sprite("Gameframe/specOrbs/60");
+		specorb35 = new Sprite("Gameframe/specOrbs/65");
+		specorb30 = new Sprite("Gameframe/specOrbs/70");
+		specorb25 = new Sprite("Gameframe/specOrbs/75");
+		specorb20 = new Sprite("Gameframe/specOrbs/80");
+		specorb15 = new Sprite("Gameframe/specOrbs/85");
+		specorb10 = new Sprite("Gameframe/specOrbs/90");
+		specorb5 = new Sprite("Gameframe/specOrbs/95");
+		specorb0 = new Sprite("Gameframe/specOrbs/100");
+		if (loadOrbs) {
+			String value = RSInterface.interfaceCache[155].message;
+			int spec = Integer.parseInt(value);
+			if (specialHover)
+				cacheSprite[56].drawSprite(Configuration.clientSize == 0 ? 153 : Configuration.clientWidth - 63,
+						Configuration.clientSize == 0 ? 131 : 150);
+			else
+				cacheSprite[42].drawSprite(Configuration.clientSize == 0 ? 154 : Configuration.clientWidth - 62,
+						Configuration.clientSize == 0 ? 132 : 151);
+			cacheSprite[5].drawSprite(Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58,
+					Configuration.clientSize == 0 ? 135 : 155);
+			if (spec == 0) {
+				specorb0.drawSprite(xOffset, yOffset);
+			} else if (spec == 5) {
+				specorb5.drawSprite(xOffset, yOffset);
+			} else if (spec == 10) {
+				specorb10.drawSprite(xOffset, yOffset);
+			} else if (spec == 15) {
+				specorb15.drawSprite(xOffset, yOffset);
+			} else if (spec == 20) {
+				specorb20.drawSprite(xOffset, yOffset);
+			} else if (spec == 25) {
+				specorb25.drawSprite(xOffset, yOffset);
+			} else if (spec == 30) {
+				specorb30.drawSprite(xOffset, yOffset);
+			} else if (spec == 35) {
+				specorb35.drawSprite(xOffset, yOffset);
+			} else if (spec == 40) {
+				specorb40.drawSprite(xOffset, yOffset);
+			} else if (spec == 45) {
+				specorb45.drawSprite(xOffset, yOffset);
+			} else if (spec == 50) {
+				specorb50.drawSprite(xOffset, yOffset);
+			} else if (spec == 55) {
+				specorb55.drawSprite(xOffset, yOffset);
+			} else if (spec == 60) {
+				specorb60.drawSprite(xOffset, yOffset);
+			} else if (spec == 65) {
+				specorb65.drawSprite(xOffset, yOffset);
+			} else if (spec == 70) {
+				specorb70.drawSprite(xOffset, yOffset);
+			} else if (spec == 75) {
+				specorb75.drawSprite(xOffset, yOffset);
+			} else if (spec == 80) {
+				specorb80.drawSprite(xOffset, yOffset);
+			} else if (spec == 85) {
+				specorb85.drawSprite(xOffset, yOffset);
+			} else if (spec == 90) {
+				specorb90.drawSprite(xOffset, yOffset);
+			} else if (spec == 95) {
+				specorb95.drawSprite(xOffset, yOffset);
+			} else if (spec == 100) {
+				specorb100.drawSprite(xOffset, yOffset);
 			}
-		} catch (Exception e) {
 
+			cacheSprite[55].drawSprite(Configuration.clientSize == 0 ? 162 : Configuration.clientWidth - 53,
+					Configuration.clientSize == 0 ? 140 : 160);
+			smallText.method382(getOrbTextColor(spec),
+					Configuration.clientSize == 0 ? 198 : Configuration.clientWidth - 19, Integer.toString(spec),
+					Configuration.clientSize == 0 ? 158 : 177, true);
 		}
 	}
-    
-   
+
     private Sprite Venomed = new Sprite(Signlink.findcachedir() + "Sprites/Orbs/Fill/FILL 7");
     public boolean isPoisoned, clickedQuickPrayers, isDiseased;
- 
-	public final int[] orbX = { 1, 9, 41 }, orbY = { 68, 105, 132 },
-			orbTextX = { 16, 25, 57 }, orbTextY = { 94, 131, 158 },
-			coloredOrbX = { 28, 36, 68 }, coloredOrbY = { 72, 109, 136 },
-			currentInterface = { 4016, 4012, 149 }, maximumInterface = { 4017,
-					4013, 149 }, orbIconX = { 34, 39, 75 }, orbIconY = { 78,
-					112, 140 };
-  /*  public final int[] orbX = { 0, 0, 25 };
-    public final int[] orbY = { 41, 85, 121 };
-    public final int[] orbTextX = { 15, 15, 40 };
-    public final int[] orbTextY = { 67, 111, 147 };
-    public final int[] coloredOrbX = { 27, 27, 52 };
-    public final int[] coloredOrbY = { 45, 89, 125 };
-    public final int[] currentInterface = { 4016, 4012, 149 };
-    public final int[] maximumInterface = { 4017, 4013, 149 };
-    public final int[] orbIconX = { 33, 30, 58 };
-    public final int[] orbIconY = { 52, 93, 129 };*/
     
+	public final int[] orbX = { 1, 1, 25 }, 
+			orbY = { 41, 85, 121 }, 
+			orbTextX = { 16, 16, 40 },
+			orbTextY = { 67, 111, 147 }, 
+			coloredOrbX = { 28, 28, 52 }, 
+			coloredOrbY = { 45, 89, 125 },
+			currentInterface = { 4016, 4012, 149 }, 
+			maximumInterface = { 4017, 4013, 149 },
+			orbIconX = { 34, 32, 59 }, orbIconY = { 50, 92, 129 };
 
-    /*private void loadAllOrbs(int xOffset) {
-		//drawSpecialOrb();
-		int[] 
-			spriteID = { isPoisoned && hpHover ? 8 : 7, prayHover ? 8 : 7, runHover ? 8 : 7, sumActive && sumHover ? 8 : 7 }, 
-			coloredOrbSprite = { 0, clickedQuickPrayers ? 2 : 1, runClicked ? 4 : 3, sumActive ? 6 : 5 },
-			orbSprite = { 9, 10, (runClicked ? 12 : 11), 13 };
-		String cEnergy = RSInterface.interfaceCache[149].message.replaceAll("%", "");
-		String hp = RSInterface.interfaceCache[4016].message.replaceAll("%", "");
-		int currentHP = Integer.parseInt(hp), currentEnergy = Integer.parseInt(cEnergy);
-		for (int i = 0; i < 3; i++) {
-			String currentStats = RSInterface.interfaceCache[currentInterface[i]].message.replaceAll("%", ""), maxStats = RSInterface.interfaceCache[maximumInterface[i]].message.replaceAll("%", "");
-			int currentLevel = Integer.parseInt(currentStats), maxLevel = Integer.parseInt(maxStats), level = (int) (((double) currentLevel / (double) maxLevel) * 100D);
-			cacheSprite[spriteID[i]].drawSprite(orbX[i] + xOffset, orbY[i]);
-			cacheSprite[coloredOrbSprite[i]].drawSprite(coloredOrbX[i] + xOffset, coloredOrbY[i]);
-			double percent = (i == 2 ? runEnergy ? currentEnergy / 100D : 100 : level / 100D), fillHp = 26 * percent, fillPrayer = 26 * percent, fillRun = 26 * percent;
-			double[] fill = { fillHp, fillPrayer, fillRun};
-			int depleteFill = 26 - (int) fill[i];
-			cacheSprite[14].myHeight = depleteFill;
-			try {
-				cacheSprite[14].drawSprite(coloredOrbX[i] + xOffset, coloredOrbY[i]);
-			} catch (Exception e) { }
-			cacheSprite[orbSprite[i]].drawSprite(orbIconX[i] + xOffset, orbIconY[i]);
-			smallText.method382(getOrbTextColor(i == 2 ? runEnergy ? currentEnergy : 100 : level), orbTextX[i] + xOffset, "" + (i == 2 ? runEnergy ? cEnergy : 100 : i == 0 && newDamage ? currentHP * 10 : RSInterface.interfaceCache[currentInterface[i]].message.replaceAll("%", "")), orbTextY[i], true);
-		}	
-		if (Configuration.clientSize == 0 ? super.mouseX >= 517 && super.mouseX <= 545 && super.mouseY >= 45 && super.mouseY <= 70 :
-			super.mouseX >= Configuration.clientWidth - 185 && super.mouseX <= Configuration.clientWidth - 158 && super.mouseY >= 40 && super.mouseY <= 66 ) {
-			cacheSprite[22].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 210, Configuration.clientSize == 0 ? 20 : 20);
-		} else {
-			cacheSprite[23].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 210, Configuration.clientSize == 0 ? 20 : 20);
-		}
-		if(Configuration.clientSize == 0) {
-			cacheSprite[worldHover ? 54 : 53].drawSprite(202, 20);
-		} else {
-			cacheSprite[worldHover ? 52 : 51].drawSprite(Configuration.clientWidth - 118, 154);
-		}
-	}*/
- 
     private void loadAllOrbs(int xOffset) {
-		//drawSpecialOrb();
+    	//drawSpecialOrb();
+    	drawosrsspec();
 		int[] 
 			spriteID = { isPoisoned && hpHover ? 8 : 7, prayHover ? 8 : 7, runHover ? 8 : 7, sumActive && sumHover ? 8 : 7 }, 
 			coloredOrbSprite = { 0, clickedQuickPrayers ? 2 : 1, runClicked ? 4 : 3, sumActive ? 6 : 5 },
@@ -15057,11 +15546,11 @@ public class Client extends RSApplet {
 			cacheSprite[orbSprite[i]].drawSprite(orbIconX[i] + xOffset, orbIconY[i]);
 			smallText.method382(getOrbTextColor(i == 2 ? runEnergy ? currentEnergy : 100 : level), orbTextX[i] + xOffset, "" + (i == 2 ? runEnergy ? cEnergy : 100 : RSInterface.interfaceCache[currentInterface[i]].message.replaceAll("%", "")), orbTextY[i], true);
 		}	
-		if (Configuration.clientSize == 0 ? super.mouseX >= 517 && super.mouseX <= 545 && super.mouseY >= 45 && super.mouseY <= 70 :
-			super.mouseX >= Configuration.clientWidth - 185 && super.mouseX <= Configuration.clientWidth - 158 && super.mouseY >= 40 && super.mouseY <= 66 ) {
-			cacheSprite[22].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 185, Configuration.clientSize == 0 ? 46 : 41);
+		if (Configuration.clientSize == 0 ? super.mouseX >= 517 && super.mouseX <= 545 && super.mouseY >= 25 && super.mouseY <= 50 :
+			super.mouseX >= Configuration.clientWidth - 214 && super.mouseX <= Configuration.clientWidth - 190 && super.mouseY >= 25 && super.mouseY <= 50) {
+			cacheSprite[22].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 213, Configuration.clientSize == 0 ? 22 : 17);
 		} else {
-			cacheSprite[23].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 185, Configuration.clientSize == 0 ? 46 : 41);
+			cacheSprite[23].drawSprite(loadOrbs && Configuration.clientSize == 0 ? 1 : Configuration.clientWidth - 213, Configuration.clientSize == 0 ? 22 : 17);
 		}
 		if(Configuration.clientSize == 0) {
 			cacheSprite[worldHover ? 54 : 53].drawSprite(202, 20);
@@ -15069,6 +15558,34 @@ public class Client extends RSApplet {
 			cacheSprite[worldHover ? 52 : 51].drawSprite(Configuration.clientWidth - 118, 154);
 		}
 	}
+    
+    private void drawSpecialOrb() {
+    			try {
+    				if (loadOrbs) {
+    					String value = RSInterface.interfaceCache[155].message;
+    					int spec = Integer.parseInt(value);
+    					if (specialHover)
+    						cacheSprite[56].drawSprite(Configuration.clientSize == 0 ? 153 : Configuration.clientWidth - 63,
+    								Configuration.clientSize == 0 ? 131 : 150);
+    					else
+    						cacheSprite[42].drawSprite(Configuration.clientSize == 0 ? 154 : Configuration.clientWidth - 62,
+    								Configuration.clientSize == 0 ? 132 : 151);
+    					cacheSprite[5].myHeight = (int) (spec * 27 / 100);
+    					cacheSprite[5].drawSprite(Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58,
+    							Configuration.clientSize == 0 ? 135 : 155);
+    					cacheSprite[14].drawSprite(Configuration.clientSize == 0 ? 157 : Configuration.clientWidth - 58,
+    	
+    							Configuration.clientSize == 0 ? 135 : 155);
+    				cacheSprite[55].drawSprite(Configuration.clientSize == 0 ? 162 : Configuration.clientWidth - 53,
+    							Configuration.clientSize == 0 ? 140 : 160);
+    					smallText.method382(getOrbTextColor(spec),
+    							Configuration.clientSize == 0 ? 198 : Configuration.clientWidth - 19, Integer.toString(spec),
+    							Configuration.clientSize == 0 ? 158 : 177, true);
+    				}
+    			} catch (Exception e) {
+    	
+    			}
+    		}
  
     public Sprite globe;
     public Sprite magicAuto;
@@ -15093,7 +15610,7 @@ public class Client extends RSApplet {
         }
 	}
  
-    private void drawCounterOnScreen() {
+   private void drawCounterOnScreen() {
         if (!loadOrbs)
             return;
         for (int i = 0; i < Skills.skillsCount; i++)
@@ -15159,6 +15676,8 @@ public class Client extends RSApplet {
             }
         }
     }
+	
+	
  
     public int xpCounter;
  
@@ -15328,7 +15847,9 @@ public class Client extends RSApplet {
         cButtonCPos = 0;
  
        // server = Configuration.localHost ? Configuration.localAddress : Configuration.liveAddress;
-	
+		//server = "188.209.49.219";
+        //server = "96.43.138.12";
+		server = "127.0.0.1";
         anIntArrayArray825 = new int[104][104];
         friendsNodeIDs = new int[200];
         groundArray = new NodeList[4][104][104];
@@ -15906,7 +16427,7 @@ public class Client extends RSApplet {
     private int publicChatMode;
     private static int anInt1288;
     public static int anInt1290;
-    public static String server = "127.0.0.1";
+    public static String server = "";
     public static int currentFogColor = 0x000000;
     public int drawCount;
     public int fullscreenInterfaceID;

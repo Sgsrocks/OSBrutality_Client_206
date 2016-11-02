@@ -21,7 +21,7 @@ final class RSFrame extends Frame {
 		//setIconImage(image);
 		Image icon = Toolkit.getDefaultToolkit().getImage("icon.png");
 		setIconImage(icon);
-		setTitle("OS-Brutality");
+		setTitle("OSBrutality");
 		setFocusTraversalKeysEnabled(false);
 		setVisible(true);
 		toFront();

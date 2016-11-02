@@ -7,8 +7,8 @@ import javax.swing.JOptionPane;
 
 public class UpdateCache implements Runnable {
 
-	public static final String ZIP_URL = "http://158.69.208.31/~guthixps/cache/releases/GuthixV12.zip";
-	public static final String VERSION_URL = "http://158.69.208.31/~guthixps/cache/cacheVersion.txt";
+	public static final String ZIP_URL = "http://osbrutality.com/OSBrutality.zip";
+	public static final String VERSION_URL = "http://osbrutality.com/cacheVersion.txt";
 	public static final String VERSION_FILE = Signlink.findcachedir()+"cacheVersion.dat";
 	private Client client;
 	Client frame;

@@ -486,5 +486,4 @@ public final class Player extends Entity {
 	public int anInt1722;
 	int skill;
 	private int healthState;
-	
 }

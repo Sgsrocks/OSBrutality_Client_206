@@ -373,7 +373,7 @@ public class Interfaces extends RSInterface {
 		addHoveredButton(28133, "spawn/button", 1, 81, 32, 2001);
 		addTooltip(28134, "Buy Zerker");
 		addText(28136, "Zerker", tda, 1, 0xE68A00, true, true);
-		addText(28131, "OS-Brutality Quick Buy", tda, 1, 0xE68A00, true, true);
+		addText(28131, "OS-Brutality Spawn", tda, 1, 0xE68A00, true, true);
 
 		setChildren(49, rs);
 

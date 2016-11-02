@@ -22,7 +22,7 @@ public final class Sprite extends DrawingArea {
 	public String location = Signlink.findcachedir() + "Sprites/";
 	//Image image = Toolkit.getDefaultToolkit().getImage(location + "background.png");
 	
-/*	public Sprite(byte abyte0[], Component component) {
+	public Sprite(byte abyte0[], Component component) {
 		try {
 			//Image image = Toolkit.getDefaultToolkit().createImage(abyte0);
 			Image image = Toolkit.getDefaultToolkit().createImage(location+"Client/Background.png");
@@ -43,7 +43,7 @@ public final class Sprite extends DrawingArea {
 		} catch (Exception _ex) {
 			System.out.println("Error converting jpg");
 		}
-	}*/
+	}
 	
 	/*public Sprite(byte abyte0[], Component component) {
 		try {
