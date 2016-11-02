@@ -2508,6 +2508,10 @@ public class Client extends RSApplet {
 	                                headIcons[player.headIcon].drawSprite(spriteDrawX - 12, spriteDrawY - l);
 	                                l += 18;
 	                            }
+	                            if (player.bhSkull < 13) {
+	                            	bhSkull[player.bhSkull].drawSprite(spriteDrawX - 12, spriteDrawY - l);
+	                                l += 17;
+	                            }
 	                        }
 	                    }
 	                    if (j >= 0 && anInt855 == 10 && anInt933 == playerIndices[j]) {

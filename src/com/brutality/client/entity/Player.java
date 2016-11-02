@@ -105,7 +105,7 @@ public final class Player extends Entity {
 		headIcon = stream.readUnsignedByte();
 		//isVenomed = stream.readUnsignedByte();
 		skullIcon = stream.readUnsignedByte();
-		//bhSkull = stream.readUnsignedByte();
+		bhSkull = stream.readUnsignedByte();
 		desc = null;
 		team = 0;
 		for (int j = 0; j < 12; j++) {
@@ -486,4 +486,5 @@ public final class Player extends Entity {
 	public int anInt1722;
 	int skill;
 	private int healthState;
+	
 }
