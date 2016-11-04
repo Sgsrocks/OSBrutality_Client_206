@@ -770,6 +770,9 @@ public class Client extends RSApplet {
                     } else if (s1 != null && s1.startsWith("@cr13@")) {
                         s1 = s1.substring(6);
                         byte0 = 13;
+                    } else if (s1 != null && s1.startsWith("@cr14@")) {
+                        s1 = s1.substring(6);
+                        byte0 = 14;
                     }
                     if (chatType == 0) {
                         if (chatTypeView == 5 || chatTypeView == 0) {
@@ -823,6 +826,9 @@ public class Client extends RSApplet {
                                     xPos += 14;
                                 } else if (byte0 == 13) {
                                     modIcons[13].drawSprite(xPos + 1, yPos - 12 + yOffset);
+                                    xPos += 14;
+                                }  else if (byte0 == 14) {
+                                    modIcons[14].drawSprite(xPos + 1, yPos - 12 + yOffset);
                                     xPos += 14;
                                 }
                                 newRegularFont.drawBasicString(s1 + ":", xPos, yPos + yOffset, changeChatArea ? 0xffffff : 0, shadow);
@@ -878,8 +884,11 @@ public class Client extends RSApplet {
                                 } else if (byte0 == 11) {
                                     modIcons[10].drawSprite(k1, yPos - 12 + yOffset);
                                     k1 += 12;
-                                }else if (byte0 == 12) {
+                                } else if (byte0 == 12) {
                                     modIcons[11].drawSprite(k1, yPos - 12 + yOffset);
+                                    k1 += 12;
+                                } else if (byte0 == 13) {
+                                    modIcons[12].drawSprite(k1, yPos - 12 + yOffset);
                                     k1 += 12;
                                 }
                                 newRegularFont.drawBasicString(s1 + ":", k1, yPos, changeChatArea ? 0xffffff : 0, shadow);
@@ -1118,6 +1127,15 @@ public class Client extends RSApplet {
             DrawingArea.method339(121 + yOffset, 0x807660, 506, 7);
             } else if (myPrivilege == 13) { // Ironman
                 modIcons[13].drawSprite(10 + xPos, 122 + yOffset);
+                xPos += 14;
+                newRegularFont.drawBasicString(fixedString + "", xPos + 11, 133 + yOffset, changeChatArea ? 0xffffff : 0, shadow);
+                textDrawingArea.method385(changeChatArea ? 0xffffff : 0, ":", 133 + yOffset, (xPos + 11) + textDrawingArea.getTextWidth(s));
+                newRegularFont.drawBasicString(inputString + ("*"), xPos + 12 + textDrawingArea.getTextWidth(s + " :"),
+                        133 + yOffset, changeChatArea ? 0x7FA9FF : 255, shadow);
+                DrawingArea.method339(121 + yOffset, 0x807660, 506, 7);
+            }
+            else if (myPrivilege == 14) { // Ironman
+                modIcons[14].drawSprite(10 + xPos, 122 + yOffset);
                 xPos += 14;
                 newRegularFont.drawBasicString(fixedString + "", xPos + 11, 133 + yOffset, changeChatArea ? 0xffffff : 0, shadow);
                 textDrawingArea.method385(changeChatArea ? 0xffffff : 0, ":", 133 + yOffset, (xPos + 11) + textDrawingArea.getTextWidth(s));
@@ -7114,6 +7132,8 @@ public class Client extends RSApplet {
                         myPlayer.anInt1531 = i3;
                         myPlayer.textCycle = 150;
                         String cr = "";
+                        if (myPrivilege == 14)
+                            cr = "@cr14@";
                         if (myPrivilege == 13)
                             cr = "@cr13@";
                         if (myPrivilege == 12)
@@ -7204,6 +7224,8 @@ public class Client extends RSApplet {
                 s = s.substring(6);
             if (s != null && s.startsWith("@cr13@"))
                 s = s.substring(6);
+            if (s != null && s.startsWith("@cr14@"))
+                s = s.substring(6);
             if ((j1 == 1 || j1 == 2) && (j1 == 1 || publicChatMode == 0 || publicChatMode == 1 && isFriendOrSelf(s))) {
                 if (j > k1 - 14 && j <= k1 && !s.equals(myPlayer.name)) {
                     if (myPrivilege >= 1) {
@@ -7260,6 +7282,8 @@ public class Client extends RSApplet {
             if (s != null && s.startsWith("@cr12@"))
                 s = s.substring(6);
             if (s != null && s.startsWith("@cr13@"))
+                s = s.substring(6);
+            if (s != null && s.startsWith("@cr14@"))
                 s = s.substring(6);
             if ((j1 == 5 || j1 == 6) && (splitPrivateChat == 0 || chatTypeView == 2)
                     && (j1 == 6 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(s)))
@@ -7321,6 +7345,8 @@ public class Client extends RSApplet {
             if (s != null && s.startsWith("@cr12@"))
                 s = s.substring(6);
             if (s != null && s.startsWith("@cr13@"))
+                s = s.substring(6);
+            if (s != null && s.startsWith("@cr14@"))
                 s = s.substring(6);
             if (chatTypeView == 3 && j1 == 4 && (tradeMode == 0 || tradeMode == 1 && isFriendOrSelf(s))) {
                 if (j > k1 - 14 && j <= k1) {
@@ -7410,7 +7436,10 @@ public class Client extends RSApplet {
             if (s != null && s.startsWith("@cr12@")) {
                 s = s.substring(6);
             }
-            if (s != null && s.startsWith("@cr12@")) {
+            if (s != null && s.startsWith("@cr13@")) {
+                s = s.substring(6);
+            }
+            if (s != null && s.startsWith("@cr14@")) {
                 s = s.substring(6);
             }
             if (s != null && s.startsWith("<col=")) {
@@ -8028,6 +8057,10 @@ public class Client extends RSApplet {
 					s = s.substring(6);
 					byte1 = 13;
 				}
+				if (s != null && s.startsWith("@cr14@")) {
+					s = s.substring(6);
+					byte1 = 14;
+				}
                 if ((k == 3 || k == 7)
                         && (k == 7 || privateChatMode == 0 || privateChatMode == 1 && isFriendOrSelf(s))) {
                     int l = 329 - i * 13;
@@ -8088,6 +8121,10 @@ public class Client extends RSApplet {
 					}
 					if (byte1 == 13) {
 						modIcons[12].drawSprite(k1, l - 11);
+						k1 += 12;
+					}
+					if (byte1 == 14) {
+						modIcons[14].drawSprite(k1, l - 11);
 						k1 += 12;
 					}
                     textDrawingArea.method385(0, s + ": " + chatMessages[j], l, k1);
@@ -9911,7 +9948,7 @@ public class Client extends RSApplet {
             for (int index = 0; index < clanIcons.length; index++) {
                 clanIcons[index] = new Sprite("Clan Chat/Icons/" + index);
             }
-            for (int i = 0; i <= 14; i++) {
+            for (int i = 0; i <= 20; i++) {
                 modIcons[i] = new Sprite("Player/MODICONS " + i + "");
             }
 			loginBox = new Sprite("login/loginbox");
@@ -11633,6 +11670,8 @@ public class Client extends RSApplet {
                         player.anInt1531 = i1 & 0xff;
                         player.textCycle = 150;
                         String cr = "";
+                        if (j2 == 14)
+                            cr = "@cr14@";
                         if (j2 == 13)
                             cr = "@cr13@";
                         if (j2 == 12)
@@ -12815,6 +12854,9 @@ public class Client extends RSApplet {
                     s = s.substring(6);
                 }
                 if (s != null && s.startsWith("@cr13@")) {
+                    s = s.substring(6);
+                }
+                if (s != null && s.startsWith("@cr14@")) {
                     s = s.substring(6);
                 }
                 if ((k == 3 || k == 7)
@@ -14849,6 +14891,9 @@ public class Client extends RSApplet {
                         case 13:
                             pushMessage(s9, 7, "@cr13@" + TextClass.fixName(TextClass.nameForLong(l5)));
                             break;
+                        case 14:
+                            pushMessage(s9, 7, "@cr14@" + TextClass.fixName(TextClass.nameForLong(l5)));
+                            break;
                         default:
                             pushMessage(s9, 3, TextClass.fixName(TextClass.nameForLong(l5)));
                         }
@@ -15976,7 +16021,7 @@ public class Client extends RSApplet {
         anInt1210 = 2;
         anInt1211 = 78;
         promptInput = "";
-        modIcons = new Sprite[15];
+        modIcons = new Sprite[21];
         tabID = 3;
         inputTaken = false;
         songChanging = true;

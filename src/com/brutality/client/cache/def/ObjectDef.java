@@ -54,9 +54,7 @@ public final class ObjectDef {
 			objectDef.name = "Spec altar";
 			break;
 		case 6552:
-			objectDef.actions[0] = "Pray-at Normal";
-			objectDef.actions[2] = "Pray-at Ancient";
-			objectDef.actions[3] = "Pray-at Lunar";
+			objectDef.actions[0] = "Switch Books";
 			break;
 
 		case 1990:
