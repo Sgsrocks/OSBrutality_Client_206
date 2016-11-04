@@ -10,7 +10,7 @@ public class Configuration {
 	public static boolean localHost = false;
 
 	public static final String localAddress = "127.0.0.1";
-	public static final String liveAddress = "188.209.49.219";
+	public static final String liveAddress = "158.69.123.8";
 
 
 	/**
