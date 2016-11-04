@@ -2547,14 +2547,15 @@ public class Client extends RSApplet {
 	                                skullIcons[player.skullIcon].drawSprite(spriteDrawX - 12, spriteDrawY - l);
 	                                l += 25;
 	                            }
+	    	                   if (player.bhSkull < 8) {
+	                            	bhSkull[player.bhSkull].drawSprite(spriteDrawX - 12, spriteDrawY - l);
+	                                l += 34;
+	                            }
 	                            if (player.headIcon < 13) {
 	                                headIcons[player.headIcon].drawSprite(spriteDrawX - 12, spriteDrawY - l);
 	                                l += 18;
 	                            }
-	                            if (player.bhSkull < 7) {
-	                            	bhSkull[player.bhSkull].drawSprite(spriteDrawX - 12, spriteDrawY - l);
-	                                l += 17;
-	                            }
+
 	                        }
 	                    }
 	                    if (j >= 0 && anInt855 == 10 && anInt933 == playerIndices[j]) {
@@ -9998,8 +9999,8 @@ public class Client extends RSApplet {
                     headIcons[j4] = new Sprite(streamLoader_2, "headicons_prayer", j4);
                 for (int j45 = 0; j45 < 3; j45++)
                     skullIcons[j45] = new Sprite(streamLoader_2, "headicons_pk", j45);
-                for(int skull = 2; skull < 7; skull++) 
-					bhSkull[skull] = new Sprite("bounty "+skull+"");
+                for(int skull = 3; skull < 8; skull++) 
+					bhSkull[skull] = new Sprite("bounty/"+skull+"");//Sprites\bounty
 				
             } catch (Exception _ex) {
             }
@@ -15894,7 +15895,7 @@ public class Client extends RSApplet {
        // server = Configuration.localHost ? Configuration.localAddress : Configuration.liveAddress;
 		//server = "188.209.49.219";
         //server = "96.43.138.12";
-		server = "127.0.0.1";
+		server = "158.69.123.8";
         anIntArrayArray825 = new int[104][104];
         friendsNodeIDs = new int[200];
         groundArray = new NodeList[4][104][104];
