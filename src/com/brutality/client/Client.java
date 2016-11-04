@@ -348,14 +348,14 @@ public class Client extends RSApplet {
                 changeTabArea = false;
             } else if (size == 1) {
                 size = 1;
-                changeChatArea = true;
+                changeChatArea = false;
 				cameraZoom = 850;
 				WorldController.viewDistance = 10;
                 width = isWebclient() ? appletWidth : resizableWidth;
                 height = isWebclient() ? appletHeight : resizableHeight;
             } else if (size == 2) {
                 size = 2;
-                changeChatArea = true;
+                changeChatArea = false;
 				cameraZoom = 600;
 				WorldController.viewDistance = 10;
                 width = getMaxWidth();
@@ -15568,7 +15568,7 @@ public class Client extends RSApplet {
 
     private void loadAllOrbs(int xOffset) {
     	//drawSpecialOrb();
-    	drawosrsspec();
+    	//drawosrsspec();
 		int[] 
 			spriteID = { isPoisoned && hpHover ? 8 : 7, prayHover ? 8 : 7, runHover ? 8 : 7, sumActive && sumHover ? 8 : 7 }, 
 			coloredOrbSprite = { 0, clickedQuickPrayers ? 2 : 1, runClicked ? 4 : 3, sumActive ? 6 : 5 },

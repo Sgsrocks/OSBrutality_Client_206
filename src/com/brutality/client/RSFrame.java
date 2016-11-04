@@ -34,7 +34,7 @@ final class RSFrame extends Frame {
 		rsApplet = rsapplet;
 		Image icon = Toolkit.getDefaultToolkit().getImage(location+"Client/icon.png");
 		setIconImage(icon);
-		setTitle("OS-Brutality");
+		setTitle("OSBrutality");
 		setFocusTraversalKeysEnabled(false);
 		setUndecorated(undecorative);
 		setResizable(resizable);
